@@ -15,9 +15,8 @@ public class MainWindow extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        String fxmlFile = "/fxml/main_window.fxml";
-        FXMLLoader loader = new FXMLLoader();
-        Parent rootNode = loader.load(getClass().getResourceAsStream(fxmlFile));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/main_window.fxml"));
+        Parent rootNode = loader.load();
         Scene scene = new Scene(rootNode);
         stage.setScene(scene);
         stage.show();
