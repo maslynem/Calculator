@@ -1,3 +1,5 @@
+package s21.maslynem.model;
+
 import java.util.*;
 
 public class Calculator {
