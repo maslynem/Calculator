@@ -18,9 +18,10 @@ public class Calculator {
         String newExpression = expression
                 .toLowerCase()
                 .replaceAll(" ", "")
-                .replaceAll("\\.", ",")
+                .replaceAll("π", String.valueOf(Math.PI))
+                .replaceAll(",", ".")
                 .replaceAll("\\(-", "(0-")
-                .replaceAll(",-", ",0-")
+                .replaceAll("\\.-", ".0-")
                 .replaceAll("\\(\\+", "(");
         char ch = newExpression.charAt(0);
         if (ch == '-' || ch == '+') {
