@@ -1,17 +1,17 @@
 package s21.maslynem.controllers;
 
 import javafx.beans.property.ReadOnlyStringWrapper;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import s21.maslynem.model.Calculator;
+import s21.maslynem.model.DataModel;
 import s21.maslynem.model.WrongExpressionException;
 
 import java.net.URL;
+import java.util.EmptyStackException;
 import java.util.ResourceBundle;
 
 public class MainWindowController implements Initializable {
@@ -24,7 +24,8 @@ public class MainWindowController implements Initializable {
     @FXML
     private TableColumn<String, String> history;
 
-    private final ObservableList<String> strings = FXCollections.observableArrayList();
+    private DataModel dataModel;
+
     @FXML
     private void onOperandClicked(MouseEvent event) {
         Button button = (Button) event.getSource();
@@ -47,9 +48,9 @@ public class MainWindowController implements Initializable {
         double result;
         try {
             result = Calculator.calculate(inputField.getText());
-            strings.add(inputField.getText() + "=" + result);
+            dataModel.addNewData(inputField.getText() + "=" + result);
             inputField.setText(String.valueOf(result));
-        } catch (WrongExpressionException exception) {
+        } catch (WrongExpressionException | EmptyStackException exception) {
             inputField.setText("Wrong Expression");
         }
     }
@@ -68,7 +69,10 @@ public class MainWindowController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         history.setCellValueFactory(param -> new ReadOnlyStringWrapper(param.getValue()));
-        historyTable.setItems(strings);
+    }
 
+    public void initModel(DataModel dataModel) {
+        this.dataModel = dataModel;
+        historyTable.setItems(dataModel.getHistory());
     }
 }
