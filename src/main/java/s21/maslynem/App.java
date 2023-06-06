@@ -1,4 +1,4 @@
-package s21.maslynem.views;
+package s21.maslynem;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -14,7 +14,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 
-public class MainWindow extends Application {
+public class App extends Application {
 
     public static void main(String[] args) {
         launch(args);
@@ -60,7 +60,7 @@ public class MainWindow extends Application {
 
     private String getPath() {
         try {
-            return new File(MainWindow.class.getProtectionDomain().getCodeSource().getLocation()
+            return new File(App.class.getProtectionDomain().getCodeSource().getLocation()
                     .toURI()).getParent();
         } catch (URISyntaxException ignored) {
             return "";
