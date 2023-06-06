@@ -10,7 +10,9 @@ import s21.maslynem.model.DataModel;
 
 import java.io.*;
 import java.net.URISyntaxException;
+import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 
 public class MainWindow extends Application {
 
@@ -36,22 +38,32 @@ public class MainWindow extends Application {
     }
 
     private DataModel loadDataModel() {
-        try (FileInputStream fileInputStream = new FileInputStream(Paths.get(getClass().getResource("/history.txt").toURI()).toFile());
-             ObjectInputStream is = new ObjectInputStream(fileInputStream)
+        try (InputStream inputStream = Files.newInputStream(Paths.get(getPath() + "/history.txt"), StandardOpenOption.CREATE);
+             ObjectInputStream is = new ObjectInputStream(inputStream)
         ) {
             DataModel dataModel = (DataModel) is.readObject();
             return dataModel == null ? new DataModel() : dataModel;
-        } catch (IOException | URISyntaxException | ClassNotFoundException e) {
+        } catch (IOException | ClassNotFoundException e) {
             return new DataModel();
         }
     }
 
     private void saveDataModel(DataModel dataModel) {
-        try (FileOutputStream fileOutputStream = new FileOutputStream(Paths.get(getClass().getResource("/history.txt").toURI()).toFile());
-             ObjectOutputStream is = new ObjectOutputStream(fileOutputStream)
-        ) {
-            is.writeObject(dataModel);
-        } catch (IOException | URISyntaxException ignored) {
+        try (OutputStream fileOutputStream = Files.newOutputStream(Paths.get(getPath() + "/history.txt"));
+             ObjectOutputStream os = new ObjectOutputStream(fileOutputStream)) {
+            System.out.println(getPath() + "/history.txt");
+            os.writeObject(dataModel);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private String getPath() {
+        try {
+            return new File(MainWindow.class.getProtectionDomain().getCodeSource().getLocation()
+                    .toURI()).getParent();
+        } catch (URISyntaxException ignored) {
+            return "";
         }
     }
 }
