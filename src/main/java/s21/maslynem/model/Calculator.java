@@ -34,10 +34,14 @@ public class Calculator {
     private static List<String> castToPostfix(String expression) {
         List<String> postfix = new ArrayList<>();
         Stack<String> stack = new Stack<>();
-        StringTokenizer tokens = new StringTokenizer(expression, OPERATORS + "()", true);
+        StringTokenizer tokens = new StringTokenizer(expression, OPERATORS + "()e", true);
         while (tokens.hasMoreTokens()) {
             String token = tokens.nextToken();
-            if (isOperand(token)) {
+            if (token.equals("e")) {
+                String operand = postfix.get(postfix.size() - 1);
+                postfix.remove(postfix.size() - 1);
+                postfix.add(operand + token + tokens.nextToken() + tokens.nextToken());
+            } else if (isOperand(token)) {
                 postfix.add(token);
             } else if (isFunction(token)) {
                 stack.push(token);
@@ -81,7 +85,11 @@ public class Calculator {
             Stack<Double> stack = new Stack<>();
             for (String token : postfix) {
                 if (isOperand(token)) {
-                    stack.push(Double.valueOf(token));
+                    double value = Double.parseDouble(token);
+                    if (Math.abs(0 - value) < 1e-7) {
+                        value = 0;
+                    }
+                    stack.push(value);
                 } else if (isOperator(token)) {
                     double result = executeOperator(stack, token);
                     stack.push(result);
@@ -99,7 +107,7 @@ public class Calculator {
 
     private static boolean isOperand(String string) {
         try {
-            Double.valueOf(string);
+            Double.parseDouble(string);
             return true;
         } catch (NumberFormatException exception) {
             return false;
