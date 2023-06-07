@@ -69,8 +69,11 @@ public class GraphController implements Initializable {
             int maxy = maxY.getText().isEmpty() ? 50 : Integer.parseInt(maxY.getText());
             xAxis.setLowerBound(minx);
             xAxis.setUpperBound(maxx);
+            xAxis.setTickUnit(Math.abs(maxx - minx) / 10.);
             yAxix.setLowerBound(miny);
             yAxix.setUpperBound(maxy);
+            yAxix.setTickUnit(Math.abs(maxy - miny) / 10.);
+
             XYChart.Series<Number, Number> series = new XYChart.Series<>();
             ObservableList<XYChart.Data<Number, Number>> datas = GraphModel.getGraphData(minx,maxx,inputField.getText());
             series.setData(datas);

@@ -16,7 +16,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="420.0" prefWidth="620.0" style="-fx-background-color: #f4f4f4;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="s21.maslynem.controllers.CalculatorController">
+<AnchorPane prefHeight="420.0" prefWidth="620.0" style="-fx-background-color: #f4f4f4;" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="s21.maslynem.controllers.CalculatorController">
    <VBox layoutY="25.0" prefHeight="60.0" prefWidth="420.0" stylesheets="@../css/text_field.css">
       <TextField fx:id="inputField" alignment="CENTER_RIGHT" prefHeight="67.0" prefWidth="420.0" promptText="0" styleClass="text-field" stylesheets="@../css/text_field.css">
          <font>
@@ -87,13 +87,13 @@
       </font>
    </Label>
    <StackPane layoutX="420.0" prefHeight="422.0" prefWidth="200.0">
-      <children>
-         <TableView fx:id="historyTable" onMouseClicked="#onHistoryClicked" prefHeight="455.0" prefWidth="200.0">
-           <columns>
-             <TableColumn fx:id="history" editable="false" prefWidth="199.0" resizable="false" sortable="false" text="History" />
-           </columns>
-         </TableView>
-         <Button focusTraversable="false" mnemonicParsing="false" onMouseClicked="#onClearHistoryClicked" prefHeight="27.0" prefWidth="51.0" text="clear" StackPane.alignment="TOP_RIGHT" />
-      </children>
+      <TableView fx:id="historyTable" onMouseClicked="#onHistoryClicked" prefHeight="455.0" prefWidth="200.0">
+         <columns>
+            <TableColumn fx:id="history" editable="false" prefWidth="199.0" resizable="false" sortable="false"
+                         text="History"/>
+         </columns>
+      </TableView>
+      <Button focusTraversable="false" mnemonicParsing="false" onMouseClicked="#onClearHistoryClicked" prefHeight="27.0"
+              prefWidth="51.0" text="clear" StackPane.alignment="TOP_RIGHT"/>
    </StackPane>
 </AnchorPane>

@@ -10,40 +10,43 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="420.0" prefWidth="620.0" style="-fx-background-color: #f4f4f4;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="s21.maslynem.controllers.GraphController">
-   <children>
-      <MenuBar layoutY="1.0" prefHeight="43.0" prefWidth="48.0" stylesheets="@../css/menu.css">
-         <menus>
-            <Menu mnemonicParsing="false" style="-fx-font-size: 20;" text="≡">
-               <items>
-                  <MenuItem mnemonicParsing="false" onAction="#onCalculatorWindowClicked" style="-fx-font-size: 12;" text="Calculator" />
-                  <MenuItem mnemonicParsing="false" style="-fx-font-size: 12;" text="Credit Calculator" />
-                  <MenuItem mnemonicParsing="false" style="-fx-font-size: 12;" text="Deposit Calculator" />
-               </items>
-            </Menu>
-         </menus>
-      </MenuBar>
-      <Label layoutX="55.0" layoutY="15.0" text="Graph">
-         <font>
-            <Font size="16.0" />
-         </font>
-      </Label>
-      <LineChart fx:id="lineChart" createSymbols="false" layoutX="19.0" layoutY="108.0" legendVisible="false" prefHeight="307.0" prefWidth="586.0">
-        <xAxis>
-          <NumberAxis side="BOTTOM" fx:id="xAxis" />
-        </xAxis>
-        <yAxis>
-          <NumberAxis fx:id="yAxix" side="LEFT" />
-        </yAxis>
-      </LineChart>
-      <TextField fx:id="inputField" alignment="CENTER" layoutX="109.0" layoutY="82.0" minHeight="25.0" onKeyPressed="#onEnterPressed" prefHeight="30.0" prefWidth="411.0" promptText="Введите уравнение" style="-fx-border-color: darkgrey;" styleClass="text-field" stylesheets="@../css/text_field.css">
-         <font>
-            <Font size="16.0" />
-         </font>
-      </TextField>
-      <TextField fx:id="minX" alignment="CENTER" layoutX="159.0" layoutY="12.0" prefHeight="26.0" prefWidth="100.0" promptText="minX" style="-fx-border-color: darkgrey;" stylesheets="@../css/text_field.css" />
-      <TextField fx:id="maxX" alignment="CENTER" layoutX="159.0" layoutY="44.0" prefHeight="26.0" prefWidth="100.0" promptText="maxX" style="-fx-border-color: darkgrey;" stylesheets="@../css/text_field.css" />
-      <TextField fx:id="minY" alignment="CENTER" layoutX="344.0" layoutY="12.0" prefHeight="26.0" prefWidth="100.0" promptText="minY" style="-fx-border-color: darkgrey;" stylesheets="@../css/text_field.css" />
-      <TextField fx:id="maxY" alignment="CENTER" layoutX="344.0" layoutY="44.0" prefHeight="26.0" prefWidth="100.0" promptText="maxY" style="-fx-border-color: darkgrey;" stylesheets="@../css/text_field.css" />
-   </children>
+<AnchorPane prefHeight="420.0" prefWidth="620.0" style="-fx-background-color: #f4f4f4;" xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml" fx:controller="s21.maslynem.controllers.GraphController">
+   <MenuBar layoutY="1.0" prefHeight="43.0" prefWidth="48.0" stylesheets="@../css/menu.css">
+      <Menu mnemonicParsing="false" style="-fx-font-size: 20;" text="≡">
+         <MenuItem mnemonicParsing="false" onAction="#onCalculatorWindowClicked" style="-fx-font-size: 12;"
+                   text="Calculator"/>
+         <MenuItem mnemonicParsing="false" style="-fx-font-size: 12;" text="Credit Calculator"/>
+         <MenuItem mnemonicParsing="false" style="-fx-font-size: 12;" text="Deposit Calculator"/>
+      </Menu>
+   </MenuBar>
+   <Label layoutX="55.0" layoutY="15.0" text="Graph">
+      <font>
+         <Font size="16.0"/>
+      </font>
+   </Label>
+   <LineChart fx:id="lineChart" createSymbols="false" layoutX="19.0" layoutY="108.0" legendVisible="false"
+              prefHeight="307.0" prefWidth="586.0">
+      <xAxis>
+         <NumberAxis side="BOTTOM" fx:id="xAxis"/>
+      </xAxis>
+      <yAxis>
+         <NumberAxis fx:id="yAxix" side="LEFT"/>
+      </yAxis>
+   </LineChart>
+   <TextField fx:id="inputField" alignment="CENTER" layoutX="109.0" layoutY="82.0" minHeight="25.0"
+              onKeyPressed="#onEnterPressed" prefHeight="30.0" prefWidth="411.0" promptText="Введите уравнение"
+              style="-fx-border-color: darkgrey;" styleClass="text-field" stylesheets="@../css/text_field.css">
+      <font>
+         <Font size="16.0"/>
+      </font>
+   </TextField>
+   <TextField fx:id="minX" alignment="CENTER" layoutX="159.0" layoutY="12.0" prefHeight="26.0" prefWidth="100.0"
+              promptText="minX" style="-fx-border-color: darkgrey;" stylesheets="@../css/text_field.css"/>
+   <TextField fx:id="maxX" alignment="CENTER" layoutX="159.0" layoutY="44.0" prefHeight="26.0" prefWidth="100.0"
+              promptText="maxX" style="-fx-border-color: darkgrey;" stylesheets="@../css/text_field.css"/>
+   <TextField fx:id="minY" alignment="CENTER" layoutX="344.0" layoutY="12.0" prefHeight="26.0" prefWidth="100.0"
+              promptText="minY" style="-fx-border-color: darkgrey;" stylesheets="@../css/text_field.css"/>
+   <TextField fx:id="maxY" alignment="CENTER" layoutX="344.0" layoutY="44.0" prefHeight="26.0" prefWidth="100.0"
+              promptText="maxY" style="-fx-border-color: darkgrey;" stylesheets="@../css/text_field.css"/>
 </AnchorPane>
