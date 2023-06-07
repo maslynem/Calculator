@@ -12,10 +12,11 @@
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #f4f4f4;" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="s21.maslynem.controllers.MainWindowController">
+<AnchorPane prefHeight="420.0" prefWidth="620.0" style="-fx-background-color: #f4f4f4;" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="s21.maslynem.controllers.CalculatorController">
    <VBox layoutY="25.0" prefHeight="60.0" prefWidth="420.0" stylesheets="@../css/text_field.css">
       <TextField fx:id="inputField" alignment="CENTER_RIGHT" prefHeight="67.0" prefWidth="420.0" styleClass="text-field" stylesheets="@../css/text_field.css">
          <font>
@@ -75,7 +76,7 @@
    </GridPane>
    <MenuBar layoutY="1.0" prefHeight="43.0" prefWidth="48.0" stylesheets="@../css/menu.css">
       <Menu mnemonicParsing="false" style="-fx-font-size: 20;" text="≡">
-         <MenuItem mnemonicParsing="false" style="-fx-font-size: 12;" text="Graph" />
+         <MenuItem mnemonicParsing="false" onAction="#onGraphWindowClicked" style="-fx-font-size: 12;" text="Graph" />
          <MenuItem mnemonicParsing="false" style="-fx-font-size: 12;" text="Credit Calculator" />
          <MenuItem mnemonicParsing="false" style="-fx-font-size: 12;" text="Deposit Calculator" />
       </Menu>
@@ -85,9 +86,14 @@
          <Font size="16.0" />
       </font>
    </Label>
-   <TableView fx:id="historyTable" layoutX="420.0" onMouseClicked="#onHistoryClicked" prefHeight="420.0" prefWidth="200.0">
-     <columns>
-       <TableColumn fx:id="history" editable="false" prefWidth="199.0" resizable="false" sortable="false" text="History" />
-     </columns>
-   </TableView>
+   <StackPane layoutX="420.0" prefHeight="422.0" prefWidth="200.0">
+      <children>
+         <TableView fx:id="historyTable" onMouseClicked="#onHistoryClicked" prefHeight="455.0" prefWidth="200.0">
+           <columns>
+             <TableColumn fx:id="history" editable="false" prefWidth="199.0" resizable="false" sortable="false" text="History" />
+           </columns>
+         </TableView>
+         <Button focusTraversable="false" mnemonicParsing="false" onMouseClicked="#onClearHistoryClicked" prefHeight="27.0" prefWidth="51.0" text="clear" StackPane.alignment="TOP_RIGHT" />
+      </children>
+   </StackPane>
 </AnchorPane>

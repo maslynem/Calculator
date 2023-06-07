@@ -4,15 +4,16 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import s21.maslynem.controllers.MainWindowController;
+import s21.maslynem.controllers.CalculatorController;
+import s21.maslynem.controllers.GraphController;
+import s21.maslynem.controllers.ScreenController;
 import s21.maslynem.model.DataModel;
 
 import java.io.*;
 import java.net.URISyntaxException;
-import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.nio.file.StandardOpenOption;
 
 public class App extends Application {
 
@@ -22,40 +23,34 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/main_window.fxml"));
-        Parent rootNode = loader.load();
-        MainWindowController mainWindowController = loader.getController();
 
-        DataModel dataModel = loadDataModel();
-        mainWindowController.initModel(dataModel);
+        FXMLLoader calculatorLoader = new FXMLLoader(getClass().getResource("/fxml/calculator_window.fxml"));
+        Pane calcPane = calculatorLoader.load();
+        FXMLLoader graphLoader = new FXMLLoader(getClass().getResource("/fxml/graph_window.fxml"));
 
-        stage.setOnCloseRequest(event -> saveDataModel(dataModel));
+        ScreenController screenController = new ScreenController(new Scene(calcPane));
 
-        Scene scene = new Scene(rootNode);
-        stage.setScene(scene);
+        screenController.addScreen("Calculator", calcPane);
+        screenController.addScreen("Graph", graphLoader.load());
+        screenController.activate("Calculator");
+
+        CalculatorController calculatorController = calculatorLoader.getController();
+        DataModel dataModel = new DataModel();
+        dataModel.tryToLoadDataFromFile(Paths.get(getPath() + "/history.txt"));
+        calculatorController.initModel(dataModel);
+        calculatorController.initScreenController(screenController);
+
+        GraphController graphController = graphLoader.getController();
+        graphController.initScreenController(screenController);
+
+
+
+        stage.setScene(screenController.getScene());
         stage.show();
 
-    }
+        stage.setOnCloseRequest(event -> dataModel.saveDataToFile(Paths.get(getPath() + "/history.txt")));
+        stage.setResizable(false);
 
-    private DataModel loadDataModel() {
-        try (InputStream inputStream = Files.newInputStream(Paths.get(getPath() + "/history.txt"), StandardOpenOption.CREATE);
-             ObjectInputStream is = new ObjectInputStream(inputStream)
-        ) {
-            DataModel dataModel = (DataModel) is.readObject();
-            return dataModel == null ? new DataModel() : dataModel;
-        } catch (IOException | ClassNotFoundException e) {
-            return new DataModel();
-        }
-    }
-
-    private void saveDataModel(DataModel dataModel) {
-        try (OutputStream fileOutputStream = Files.newOutputStream(Paths.get(getPath() + "/history.txt"));
-             ObjectOutputStream os = new ObjectOutputStream(fileOutputStream)) {
-            System.out.println(getPath() + "/history.txt");
-            os.writeObject(dataModel);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
     private String getPath() {

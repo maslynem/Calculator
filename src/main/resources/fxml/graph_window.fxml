@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="420.0" prefWidth="620.0" style="-fx-background-color: #f4f4f4;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="s21.maslynem.controllers.GraphController">
+   <children>
+      <MenuBar layoutY="1.0" prefHeight="43.0" prefWidth="48.0" stylesheets="@../css/menu.css">
+         <menus>
+            <Menu mnemonicParsing="false" style="-fx-font-size: 20;" text="≡">
+               <items>
+                  <MenuItem mnemonicParsing="false" onAction="#onCalculatorWindowClicked" style="-fx-font-size: 12;" text="Calculator" />
+                  <MenuItem mnemonicParsing="false" style="-fx-font-size: 12;" text="Credit Calculator" />
+                  <MenuItem mnemonicParsing="false" style="-fx-font-size: 12;" text="Deposit Calculator" />
+               </items>
+            </Menu>
+         </menus>
+      </MenuBar>
+      <Label layoutX="55.0" layoutY="15.0" text="Graph">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

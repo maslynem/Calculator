@@ -14,7 +14,7 @@ import java.net.URL;
 import java.util.EmptyStackException;
 import java.util.ResourceBundle;
 
-public class MainWindowController implements Initializable {
+public class CalculatorController implements Initializable {
     @FXML
     private TextField inputField;
 
@@ -25,6 +25,8 @@ public class MainWindowController implements Initializable {
     private TableColumn<String, String> history;
 
     private DataModel dataModel;
+
+    private ScreenController screenController;
 
     @FXML
     private void onOperandClicked(MouseEvent event) {
@@ -51,7 +53,7 @@ public class MainWindowController implements Initializable {
             dataModel.addNewData(inputField.getText() + "=" + result);
             inputField.setText(String.valueOf(result));
         } catch (WrongExpressionException | EmptyStackException exception) {
-            inputField.setText("Wrong Expression");
+            inputField.setText(exception.getMessage());
         }
     }
 
@@ -74,5 +76,19 @@ public class MainWindowController implements Initializable {
     public void initModel(DataModel dataModel) {
         this.dataModel = dataModel;
         historyTable.setItems(dataModel.getHistory());
+    }
+
+    public void initScreenController(ScreenController screenController) {
+        this.screenController = screenController;
+    }
+
+    @FXML
+    void onClearHistoryClicked() {
+        dataModel.clearHistory();
+    }
+
+    @FXML
+    void onGraphWindowClicked() {
+        screenController.activate("Graph");
     }
 }

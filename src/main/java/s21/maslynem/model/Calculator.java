@@ -19,6 +19,7 @@ public class Calculator {
                 .toLowerCase()
                 .replaceAll(" ", "")
                 .replaceAll("π", String.valueOf(Math.PI))
+                .replaceAll("√", "sqrt")
                 .replaceAll(",", ".")
                 .replaceAll("\\(-", "(0-")
                 .replaceAll("\\.-", ".0-")
@@ -76,23 +77,23 @@ public class Calculator {
     }
 
     private static double calculateByPostfix(List<String> postfix) {
-        Stack<Double> stack = new Stack<>();
-        for (String token : postfix) {
-            if (isOperand(token)) {
-                stack.push(Double.valueOf(token));
-            } else if (isOperator(token)) {
-                double result = executeOperator(stack, token);
-                stack.push(result);
-            } else {
-                double result = executeFunction(stack, token);
-                stack.push(result);
-
-            }
-        }
         try {
+            Stack<Double> stack = new Stack<>();
+            for (String token : postfix) {
+                if (isOperand(token)) {
+                    stack.push(Double.valueOf(token));
+                } else if (isOperator(token)) {
+                    double result = executeOperator(stack, token);
+                    stack.push(result);
+                } else {
+                    double result = executeFunction(stack, token);
+                    stack.push(result);
+
+                }
+            }
             return stack.pop();
         } catch (EmptyStackException exception) {
-            throw new WrongExpressionException("calculateByPostfix exception");
+            throw new WrongExpressionException("Wrong expression");
         }
     }
 
