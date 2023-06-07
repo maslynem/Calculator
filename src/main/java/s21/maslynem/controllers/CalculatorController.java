@@ -6,6 +6,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import s21.maslynem.model.Calculator;
 import s21.maslynem.model.DataModel;
 import s21.maslynem.model.WrongExpressionException;
@@ -28,6 +30,8 @@ public class CalculatorController implements Initializable {
 
     private ScreenController screenController;
 
+    private static final Logger LOGGER = LogManager.getLogger(CalculatorController.class);
+
     @FXML
     private void onOperandClicked(MouseEvent event) {
         Button button = (Button) event.getSource();
@@ -48,12 +52,15 @@ public class CalculatorController implements Initializable {
     @FXML
     void onCalculateClicked() {
         double result;
+        String inputText = inputField.getText();
         try {
-            result = Calculator.calculate(inputField.getText());
-            dataModel.addNewData(inputField.getText() + "=" + result);
+            result = Calculator.calculate(inputText);
+            dataModel.addNewData(inputText + "=" + result);
+            LOGGER.info(inputText + "=" + result);
             inputField.setText(String.valueOf(result));
         } catch (WrongExpressionException | EmptyStackException exception) {
             inputField.setText(exception.getMessage());
+            LOGGER.error(inputText + " : " + exception.getMessage());
         }
     }
 
