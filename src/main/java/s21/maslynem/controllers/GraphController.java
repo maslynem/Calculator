@@ -1,6 +1,5 @@
 package s21.maslynem.controllers;
 
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -10,7 +9,6 @@ import javafx.scene.chart.XYChart;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import s21.maslynem.model.Calculator;
 import s21.maslynem.model.GraphModel;
 
 import java.net.URL;
