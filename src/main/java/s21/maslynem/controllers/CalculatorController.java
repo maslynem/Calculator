@@ -8,11 +8,15 @@ import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.core.config.Configurator;
 import s21.maslynem.model.Calculator;
 import s21.maslynem.model.DataModel;
 import s21.maslynem.model.WrongExpressionException;
 
+import java.io.*;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.EmptyStackException;
 import java.util.ResourceBundle;
 
@@ -51,6 +55,8 @@ public class CalculatorController implements Initializable {
 
     @FXML
     void onCalculateClicked() {
+
+
         double result;
         String inputText = inputField.getText();
         try {
@@ -62,6 +68,30 @@ public class CalculatorController implements Initializable {
             inputField.setText(exception.getMessage());
             LOGGER.error(inputText + " : " + exception.getMessage());
         }
+
+        String changeWord = "        <Root level=\"error\">";
+
+        String path = getClass().getResource("/log4j2.xml").getPath();
+        StringBuilder sb = new StringBuilder();
+        try (BufferedReader br = new BufferedReader(new InputStreamReader(Files.newInputStream(Paths.get(path))))) {
+            String strLine;
+            while ((strLine = br.readLine()) != null) {
+                if (strLine.contains("Root level")) {
+                    sb.append(changeWord).append("\n");
+                } else {
+                    sb.append(strLine).append("\n");
+                }
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        try (FileWriter fileWriter = new FileWriter(path)) {
+            fileWriter.write(sb.toString());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        Configurator.reconfigure();
     }
 
     @FXML
