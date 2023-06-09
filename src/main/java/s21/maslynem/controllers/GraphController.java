@@ -39,15 +39,15 @@ public class GraphController implements Initializable {
     @FXML
     private TextField minY;
 
-    private ScreenController screenController;
+    private SceneController sceneController;
 
-    public void initScreenController(ScreenController screenController) {
-        this.screenController = screenController;
+    public void initScreenController(SceneController sceneController) {
+        this.sceneController = sceneController;
     }
 
     @FXML
     private void onCalculatorWindowClicked() {
-        screenController.activate("Calculator");
+        sceneController.activate("Calculator");
     }
 
     @Override

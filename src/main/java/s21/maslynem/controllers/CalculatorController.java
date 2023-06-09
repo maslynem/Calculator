@@ -3,20 +3,19 @@ package s21.maslynem.controllers;
 import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.apache.logging.log4j.core.config.Configurator;
 import s21.maslynem.model.Calculator;
 import s21.maslynem.model.DataModel;
 import s21.maslynem.model.WrongExpressionException;
 
-import java.io.*;
 import java.net.URL;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.EmptyStackException;
 import java.util.ResourceBundle;
 
@@ -32,7 +31,7 @@ public class CalculatorController implements Initializable {
 
     private DataModel dataModel;
 
-    private ScreenController screenController;
+    private SceneController sceneController;
 
     private static final Logger LOGGER = LogManager.getLogger(CalculatorController.class);
 
@@ -55,8 +54,6 @@ public class CalculatorController implements Initializable {
 
     @FXML
     void onCalculateClicked() {
-
-
         double result;
         String inputText = inputField.getText();
         try {
@@ -68,41 +65,30 @@ public class CalculatorController implements Initializable {
             inputField.setText(exception.getMessage());
             LOGGER.error(inputText + " : " + exception.getMessage());
         }
-
-        String changeWord = "        <Root level=\"error\">";
-
-        String path = getClass().getResource("/log4j2.xml").getPath();
-        StringBuilder sb = new StringBuilder();
-        try (BufferedReader br = new BufferedReader(new InputStreamReader(Files.newInputStream(Paths.get(path))))) {
-            String strLine;
-            while ((strLine = br.readLine()) != null) {
-                if (strLine.contains("Root level")) {
-                    sb.append(changeWord).append("\n");
-                } else {
-                    sb.append(strLine).append("\n");
-                }
-            }
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
-        try (FileWriter fileWriter = new FileWriter(path)) {
-            fileWriter.write(sb.toString());
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        Configurator.reconfigure();
     }
 
     @FXML
     void onHistoryClicked(MouseEvent event) {
-        if(event.getButton().equals(MouseButton.PRIMARY) && event.getClickCount() == 2){
-            TablePosition<?,?> pos = historyTable.getSelectionModel().getSelectedCells().get(0);
+        if (event.getButton().equals(MouseButton.PRIMARY) && event.getClickCount() == 2) {
+            TablePosition<?, ?> pos = historyTable.getSelectionModel().getSelectedCells().get(0);
             int index = pos.getRow();
             String selected = historyTable.getItems().get(index);
             selected = selected.substring(0, selected.indexOf("="));
             inputField.setText(selected);
         }
+    }
+
+    @FXML
+    void onSettingsClicked() {
+        Stage stage = new Stage();
+        Scene scene = sceneController.getModalityScene("Settings");
+        stage.setScene(scene);
+        stage.setTitle("Settings");
+        stage.initModality(Modality.WINDOW_MODAL);
+        stage.initOwner(
+                (sceneController.getMainScene().getWindow()));
+        stage.setResizable(false);
+        stage.show();
     }
 
     @Override
@@ -115,8 +101,8 @@ public class CalculatorController implements Initializable {
         historyTable.setItems(dataModel.getHistory());
     }
 
-    public void initScreenController(ScreenController screenController) {
-        this.screenController = screenController;
+    public void initScreenController(SceneController sceneController) {
+        this.sceneController = sceneController;
     }
 
     @FXML
@@ -126,6 +112,6 @@ public class CalculatorController implements Initializable {
 
     @FXML
     void onGraphWindowClicked() {
-        screenController.activate("Graph");
+        sceneController.activate("Graph");
     }
 }

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="461.0" prefWidth="394.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="s21.maslynem.controllers.SettingsController">
+   <children>
+      <Label alignment="CENTER" layoutX="64.0" layoutY="38.0" prefHeight="16.0" prefWidth="276.0" text="Logs rotation period">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <VBox alignment="CENTER_LEFT" layoutX="152.0" layoutY="84.0" prefHeight="55.0" prefWidth="100.0" spacing="10.0">
+         <children>
+            <RadioButton fx:id="hour" mnemonicParsing="false" onMouseClicked="#onChanged" selected="true" text="Hour">
+               <toggleGroup>
+                  <ToggleGroup fx:id="logRotation" />
+               </toggleGroup>
+            </RadioButton>
+            <RadioButton fx:id="day" mnemonicParsing="false" onMouseClicked="#onChanged" text="Day" toggleGroup="$logRotation" />
+            <RadioButton fx:id="month" mnemonicParsing="false" onMouseClicked="#onChanged" text="Month" toggleGroup="$logRotation" />
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>

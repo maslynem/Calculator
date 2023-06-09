@@ -2,13 +2,12 @@ package s21.maslynem;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import s21.maslynem.controllers.CalculatorController;
 import s21.maslynem.controllers.GraphController;
-import s21.maslynem.controllers.ScreenController;
+import s21.maslynem.controllers.SceneController;
 import s21.maslynem.model.DataModel;
 
 import java.io.*;
@@ -27,25 +26,27 @@ public class App extends Application {
         FXMLLoader calculatorLoader = new FXMLLoader(getClass().getResource("/fxml/calculator_window.fxml"));
         Pane calcPane = calculatorLoader.load();
         FXMLLoader graphLoader = new FXMLLoader(getClass().getResource("/fxml/graph_window.fxml"));
+        FXMLLoader settingsLoader = new FXMLLoader(getClass().getResource("/fxml/settings_window.fxml"));
 
-        ScreenController screenController = new ScreenController(new Scene(calcPane));
+        SceneController sceneController = new SceneController(new Scene(calcPane));
 
-        screenController.addScreen("Calculator", calcPane);
-        screenController.addScreen("Graph", graphLoader.load());
-        screenController.activate("Calculator");
+        sceneController.addPane("Calculator", calcPane);
+        sceneController.addPane("Graph", graphLoader.load());
+        sceneController.addPane("Settings", settingsLoader.load());
+        sceneController.activate("Calculator");
 
         CalculatorController calculatorController = calculatorLoader.getController();
         DataModel dataModel = new DataModel();
         dataModel.tryToLoadDataFromFile(Paths.get(getPath() + "/history.txt"));
         calculatorController.initModel(dataModel);
-        calculatorController.initScreenController(screenController);
+        calculatorController.initScreenController(sceneController);
 
         GraphController graphController = graphLoader.getController();
-        graphController.initScreenController(screenController);
+        graphController.initScreenController(sceneController);
 
 
 
-        stage.setScene(screenController.getScene());
+        stage.setScene(sceneController.getMainScene());
         stage.show();
 
         stage.setOnCloseRequest(event -> dataModel.saveDataToFile(Paths.get(getPath() + "/history.txt")));
