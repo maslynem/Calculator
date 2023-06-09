@@ -56,14 +56,16 @@ public class CalculatorController implements Initializable {
     void onCalculateClicked() {
         double result;
         String inputText = inputField.getText();
-        try {
-            result = Calculator.calculate(inputText);
-            dataModel.addNewData(inputText + "=" + result);
-            LOGGER.info(inputText + "=" + result);
-            inputField.setText(String.valueOf(result));
-        } catch (WrongExpressionException | EmptyStackException exception) {
-            inputField.setText(exception.getMessage());
-            LOGGER.error(inputText + " : " + exception.getMessage());
+        if (!inputText.isEmpty()) {
+            try {
+                result = Calculator.calculate(inputText);
+                dataModel.addNewData(inputText + "=" + result);
+                LOGGER.info(inputText + "=" + result);
+                inputField.setText(String.valueOf(result));
+            } catch (WrongExpressionException | EmptyStackException exception) {
+                inputField.setText(exception.getMessage());
+                LOGGER.error(inputText + " : " + exception.getMessage());
+            }
         }
     }
 
@@ -80,14 +82,7 @@ public class CalculatorController implements Initializable {
 
     @FXML
     void onSettingsClicked() {
-        Stage stage = new Stage();
-        Scene scene = sceneController.getModalityScene("Settings");
-        stage.setScene(scene);
-        stage.setTitle("Settings");
-        stage.initModality(Modality.WINDOW_MODAL);
-        stage.initOwner(
-                (sceneController.getMainScene().getWindow()));
-        stage.setResizable(false);
+        Stage stage = sceneController.getModalityStage("Settings");
         stage.show();
     }
 

@@ -3,12 +3,15 @@ package s21.maslynem.controllers;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import s21.maslynem.model.GraphModel;
 
 import java.net.URL;
@@ -114,5 +117,11 @@ public class GraphController implements Initializable {
                 }
             }
         });
+    }
+
+    @FXML
+    void onSettingsClicked() {
+        Stage stage = sceneController.getModalityStage("Settings");
+        stage.show();
     }
 }

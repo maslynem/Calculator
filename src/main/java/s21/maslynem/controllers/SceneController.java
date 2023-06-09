@@ -2,6 +2,8 @@ package s21.maslynem.controllers;
 
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
 import java.util.HashMap;
 
@@ -14,11 +16,11 @@ public class SceneController {
         this.main = main;
     }
 
-    public void addPane(String name, Pane pane){
+    public void addPane(String name, Pane pane) {
         paneMap.put(name, pane);
     }
 
-    public void removePane(String name){
+    public void removePane(String name) {
         paneMap.remove(name);
     }
 
@@ -26,20 +28,26 @@ public class SceneController {
         return main;
     }
 
-    public Scene getModalityScene(String name) {
+    public Stage getModalityStage(String name) {
         Scene scene = sceneMap.get(name);
         if (scene == null) {
             scene = new Scene(paneMap.get(name));
             sceneMap.put(name, scene);
         }
-        return scene;
+        Stage stage = new Stage();
+        stage.setScene(scene);
+        stage.setTitle("Settings");
+        stage.initModality(Modality.WINDOW_MODAL);
+        stage.initOwner(main.getWindow());
+        stage.setResizable(false);
+        return stage;
     }
 
     public Pane getPaneByName(String name) {
         return paneMap.get(name);
     }
 
-    public void activate(String name){
-        main.setRoot( paneMap.get(name) );
+    public void activate(String name) {
+        main.setRoot(paneMap.get(name));
     }
 }
