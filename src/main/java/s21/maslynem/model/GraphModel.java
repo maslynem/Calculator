@@ -10,12 +10,12 @@ public class GraphModel {
 
     public static ObservableList<XYChart.Data<Number, Number>> getGraphData(int minX, int maxX, String expression) {
         ObservableList<XYChart.Data<Number, Number>> data = FXCollections.observableArrayList();
-        double h = (Math.abs(minX) + Math.abs(maxX)) / 1000.;
+        double h = (maxX - minX) / 10000.;
         for (double i = minX; i <= maxX; i += h) {
             try {
-                data.add(new XYChart.Data<>(i, Calculator.calculate(expression.replaceAll("x", "(" + i + ")"))));
+                double value = Calculator.calculate(expression.replaceAll("x", "(" + i + ")"));
+                data.add(new XYChart.Data<>(i, value));
             } catch (Exception ignored) {
-
             }
         }
         return data;
