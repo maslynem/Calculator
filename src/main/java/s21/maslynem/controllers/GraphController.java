@@ -3,17 +3,12 @@ package s21.maslynem.controllers;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
-import javafx.scene.Scene;
-import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.ScatterChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.TextField;
-import javafx.scene.control.Tooltip;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 import s21.maslynem.model.GraphModel;
 
@@ -22,13 +17,13 @@ import java.util.ResourceBundle;
 
 public class GraphController implements Initializable {
     @FXML
-    private LineChart<Number, Number> lineChart;
+    private ScatterChart<Number, Number> scatterChart;
 
     @FXML
     private NumberAxis xAxis;
 
     @FXML
-    private NumberAxis yAxix;
+    private NumberAxis yAxis;
 
     @FXML
     private TextField inputField;
@@ -63,7 +58,7 @@ public class GraphController implements Initializable {
         addMaxValueListener(maxX);
         addMaxValueListener(maxY);
         xAxis.setAutoRanging(false);
-        yAxix.setAutoRanging(false);
+        yAxis.setAutoRanging(false);
     }
 
     @FXML
@@ -76,15 +71,15 @@ public class GraphController implements Initializable {
             xAxis.setLowerBound(minx);
             xAxis.setUpperBound(maxx);
             xAxis.setTickUnit(Math.abs(maxx - minx) / 10.);
-            yAxix.setLowerBound(miny);
-            yAxix.setUpperBound(maxy);
-            yAxix.setTickUnit(Math.abs(maxy - miny) / 10.);
+            yAxis.setLowerBound(miny);
+            yAxis.setUpperBound(maxy);
+            yAxis.setTickUnit(Math.abs(maxy - miny) / 10.);
 
             XYChart.Series<Number, Number> series = new XYChart.Series<>();
             ObservableList<XYChart.Data<Number, Number>> datas = GraphModel.getGraphData(minx,maxx,inputField.getText());
             series.setData(datas);
-            lineChart.getData().clear();
-            lineChart.getData().add(series);
+            scatterChart.getData().clear();
+            scatterChart.getData().add(series);
         }
     }
 
