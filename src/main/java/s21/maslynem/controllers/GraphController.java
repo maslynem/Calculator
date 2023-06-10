@@ -10,6 +10,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import s21.maslynem.model.GraphModel;
 
 import java.net.URL;
@@ -42,6 +44,8 @@ public class GraphController implements Initializable {
 
     private SceneController sceneController;
 
+    private static final Logger LOGGER = LogManager.getLogger(GraphController.class);
+
     public void initScreenController(SceneController sceneController) {
         this.sceneController = sceneController;
     }
@@ -70,16 +74,24 @@ public class GraphController implements Initializable {
             int maxy = maxY.getText().isEmpty() ? 50 : Integer.parseInt(maxY.getText());
             xAxis.setLowerBound(minx);
             xAxis.setUpperBound(maxx);
-            xAxis.setTickUnit(Math.abs(maxx - minx) / 10.);
+            xAxis.setTickUnit((maxx - minx) / 10.);
             yAxis.setLowerBound(miny);
             yAxis.setUpperBound(maxy);
-            yAxis.setTickUnit(Math.abs(maxy - miny) / 10.);
+            yAxis.setTickUnit((maxy - miny) / 10.);
 
             XYChart.Series<Number, Number> series = new XYChart.Series<>();
-            ObservableList<XYChart.Data<Number, Number>> datas = GraphModel.getGraphData(minx,maxx,inputField.getText());
-            series.setData(datas);
-            scatterChart.getData().clear();
-            scatterChart.getData().add(series);
+
+            String expression = inputField.getText();
+            ObservableList<XYChart.Data<Number, Number>> dataList = GraphModel.getGraphData(minx, maxx, inputField.getText());
+            if (dataList.isEmpty()) {
+                LOGGER.error("Wrong expression: " + expression);
+                inputField.setText("Wrong expression: " + expression);
+            } else {
+                LOGGER.info(expression);
+                series.setData(dataList);
+                scatterChart.getData().clear();
+                scatterChart.getData().add(series);
+            }
         }
     }
 
@@ -118,7 +130,7 @@ public class GraphController implements Initializable {
     }
 
     @FXML
-    void onSettingsClicked() {
+    private void onSettingsClicked() {
         Stage stage = sceneController.getModalityStage("Settings");
         stage.show();
     }

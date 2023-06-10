@@ -93,15 +93,20 @@ public class Calculator {
                 } else if (isOperator(token)) {
                     double result = executeOperator(stack, token);
                     stack.push(result);
-                } else {
+                } else if (isFunction(token)){
                     double result = executeFunction(stack, token);
                     stack.push(result);
-
+                } else {
+                    throw new WrongExpressionException("Wrong expression: undefined token [" + token +"]");
                 }
             }
-            return stack.pop();
+            double result = stack.pop();
+            if (!stack.empty()) {
+                throw new WrongExpressionException("Wrong expression: missing operator");
+            }
+            return result;
         } catch (EmptyStackException exception) {
-            throw new WrongExpressionException("Wrong expression");
+            throw new WrongExpressionException("Wrong expression: unexpected operator");
         }
     }
 
@@ -127,7 +132,7 @@ public class Calculator {
     }
 
     private static boolean isFunction(String string) {
-        return Arrays.binarySearch(FUNCTIONS, string) != -1;
+        return Arrays.binarySearch(FUNCTIONS, string) >= 0;
     }
 
     private static int getOperatorPriority(String operator) {
