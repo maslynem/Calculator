@@ -77,7 +77,7 @@
    <MenuBar layoutY="1.0" prefHeight="43.0" prefWidth="48.0" stylesheets="@../css/menu.css">
       <Menu mnemonicParsing="false" style="-fx-font-size: 20;" text="≡">
          <MenuItem mnemonicParsing="false" onAction="#onGraphWindowClicked" style="-fx-font-size: 12;" text="Graph" />
-         <MenuItem mnemonicParsing="false" style="-fx-font-size: 12;" text="Credit Calculator" />
+         <MenuItem mnemonicParsing="false" onAction="#onCreditWindowClicked" style="-fx-font-size: 12;" text="Credit Calculator" />
          <MenuItem mnemonicParsing="false" style="-fx-font-size: 12;" text="Deposit Calculator" />
          <MenuItem mnemonicParsing="false" onAction="#onSettingsClicked" style="-fx-font-size: 12;" text="Settings" />
       </Menu>

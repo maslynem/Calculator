@@ -3,11 +3,9 @@ package s21.maslynem.controllers;
 import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -108,5 +106,9 @@ public class CalculatorController implements Initializable {
     @FXML
     void onGraphWindowClicked() {
         sceneController.activate("Graph");
+    }
+    @FXML
+    void onCreditWindowClicked() {
+        sceneController.activate("Credit");
     }
 }
