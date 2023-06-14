@@ -6,6 +6,7 @@ import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import s21.maslynem.controllers.CalculatorController;
+import s21.maslynem.controllers.CreditController;
 import s21.maslynem.controllers.GraphController;
 import s21.maslynem.controllers.SceneController;
 import s21.maslynem.model.DataModel;
@@ -46,7 +47,8 @@ public class App extends Application {
         GraphController graphController = graphLoader.getController();
         graphController.initScreenController(sceneController);
 
-
+        CreditController creditController = creditLoader.getController();
+        creditController.initScreenController(sceneController);
 
         stage.setScene(sceneController.getMainScene());
         stage.show();

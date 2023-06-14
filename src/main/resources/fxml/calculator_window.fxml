@@ -74,7 +74,7 @@
       <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onMouseClicked="#onOperandClicked" styleClass="operands_button" stylesheets="@../css/calc_buttons.css" text="mod" GridPane.columnIndex="2" GridPane.rowIndex="3" />
       <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" style="-fx-background-color: rgb(214 ,214, 214); -fx-border-color: grey; -fx-border-radius: 1;" GridPane.columnSpan="3" GridPane.rowIndex="4" />
    </GridPane>
-   <MenuBar layoutY="1.0" prefHeight="43.0" prefWidth="48.0" stylesheets="@../css/menu.css">
+   <MenuBar prefHeight="43.0" prefWidth="48.0" stylesheets="@../css/menu.css">
       <Menu mnemonicParsing="false" style="-fx-font-size: 20;" text="≡">
          <MenuItem mnemonicParsing="false" onAction="#onGraphWindowClicked" style="-fx-font-size: 12;" text="Graph" />
          <MenuItem mnemonicParsing="false" onAction="#onCreditWindowClicked" style="-fx-font-size: 12;" text="Credit Calculator" />
@@ -82,7 +82,7 @@
          <MenuItem mnemonicParsing="false" onAction="#onSettingsClicked" style="-fx-font-size: 12;" text="Settings" />
       </Menu>
    </MenuBar>
-   <Label layoutX="55.0" layoutY="15.0" text="Calculator">
+   <Label layoutX="55.0" layoutY="13.0" text="Calculator">
       <font>
          <Font size="16.0" />
       </font>

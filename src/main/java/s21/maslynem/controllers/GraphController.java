@@ -55,6 +55,16 @@ public class GraphController implements Initializable {
         sceneController.activate("Calculator");
     }
 
+    @FXML
+    private void onSettingsClicked() {
+        Stage stage = sceneController.getModalityStage("Settings");
+        stage.show();
+    }
+    @FXML
+    private void onCreditClicked() {
+        sceneController.activate("Credit");
+    }
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         addMinValueListener(minX);
@@ -127,11 +137,5 @@ public class GraphController implements Initializable {
                 }
             }
         });
-    }
-
-    @FXML
-    private void onSettingsClicked() {
-        Stage stage = sceneController.getModalityStage("Settings");
-        stage.show();
     }
 }

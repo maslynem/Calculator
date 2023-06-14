@@ -4,6 +4,9 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.stage.Stage;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -46,15 +49,28 @@ public class CreditController implements Initializable {
     @FXML
     private Spinner<Integer> sumSpinner;
 
-    @FXML
-    void onCalculatorWindowClicked(ActionEvent event) {
+    private SceneController sceneController;
 
+    public void initScreenController(SceneController sceneController) {
+        this.sceneController = sceneController;
     }
 
     @FXML
-    void onSettingsClicked(ActionEvent event) {
-
+    void onCalculatorWindowClicked() {
+        sceneController.activate("Calculator");
     }
+
+    @FXML
+    void onGraphClicked() {
+        sceneController.activate("Graph");
+    }
+    @FXML
+    void onSettingsClicked() {
+        Stage stage = sceneController.getModalityStage("Settings");
+        stage.show();
+    }
+
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {

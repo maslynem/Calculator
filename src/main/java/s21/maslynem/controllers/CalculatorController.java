@@ -78,12 +78,6 @@ public class CalculatorController implements Initializable {
         }
     }
 
-    @FXML
-    void onSettingsClicked() {
-        Stage stage = sceneController.getModalityStage("Settings");
-        stage.show();
-    }
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         history.setCellValueFactory(param -> new ReadOnlyStringWrapper(param.getValue()));
@@ -110,5 +104,11 @@ public class CalculatorController implements Initializable {
     @FXML
     void onCreditWindowClicked() {
         sceneController.activate("Credit");
+    }
+
+    @FXML
+    void onSettingsClicked() {
+        Stage stage = sceneController.getModalityStage("Settings");
+        stage.show();
     }
 }

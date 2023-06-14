@@ -10,16 +10,16 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="420.0" prefWidth="620.0" style="-fx-background-color: #f4f4f4;" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="s21.maslynem.controllers.GraphController">
-   <MenuBar layoutY="1.0" prefHeight="43.0" prefWidth="48.0" stylesheets="@../css/menu.css">
+<AnchorPane prefHeight="420.0" prefWidth="620.0" style="-fx-background-color: #f4f4f4;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="s21.maslynem.controllers.GraphController">
+   <MenuBar prefHeight="43.0" prefWidth="48.0" stylesheets="@../css/menu.css">
       <Menu mnemonicParsing="false" style="-fx-font-size: 20;" text="≡">
          <MenuItem mnemonicParsing="false" onAction="#onCalculatorWindowClicked" style="-fx-font-size: 12;" text="Calculator" />
-         <MenuItem mnemonicParsing="false" style="-fx-font-size: 12;" text="Credit Calculator" />
+         <MenuItem mnemonicParsing="false" onAction="#onCreditClicked" style="-fx-font-size: 12;" text="Credit Calculator" />
          <MenuItem mnemonicParsing="false" style="-fx-font-size: 12;" text="Deposit Calculator" />
          <MenuItem mnemonicParsing="false" onAction="#onSettingsClicked" style="-fx-font-size: 12;" text="Settings" />
       </Menu>
    </MenuBar>
-   <Label layoutX="55.0" layoutY="15.0" text="Graph">
+   <Label layoutX="55.0" layoutY="13.0" text="Graph">
       <font>
          <Font size="16.0" />
       </font>
