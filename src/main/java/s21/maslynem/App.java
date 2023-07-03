@@ -10,6 +10,7 @@ import s21.maslynem.controllers.CreditController;
 import s21.maslynem.controllers.GraphController;
 import s21.maslynem.controllers.SceneController;
 import s21.maslynem.model.calculator.Calculator;
+import s21.maslynem.model.creditCalculator.CreditCalculator;
 import s21.maslynem.model.graphModel.GraphModel;
 
 import java.io.*;
@@ -50,6 +51,8 @@ public class App extends Application {
         graphController.initScreenController(sceneController);
 
         CreditController creditController = creditLoader.getController();
+        CreditCalculator creditCalculator = new CreditCalculator();
+        creditController.initModel(creditCalculator);
         creditController.initScreenController(sceneController);
 
         stage.setScene(sceneController.getMainScene());

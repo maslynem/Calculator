@@ -16,7 +16,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="420.0" prefWidth="620.0" style="-fx-background-color: #f4f4f4;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="s21.maslynem.controllers.CalculatorController">
+<AnchorPane prefHeight="420.0" prefWidth="620.0" style="-fx-background-color: #f4f4f4;" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="s21.maslynem.controllers.CalculatorController">
    <VBox layoutY="25.0" prefHeight="60.0" prefWidth="420.0" stylesheets="@../css/text_field.css">
       <TextField fx:id="inputField" alignment="CENTER_RIGHT" prefHeight="67.0" prefWidth="420.0" promptText="0" styleClass="text-field" stylesheets="@../css/text_field.css">
          <font>

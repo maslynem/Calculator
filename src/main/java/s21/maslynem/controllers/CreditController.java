@@ -7,6 +7,9 @@ import javafx.scene.control.*;
 import javafx.stage.Stage;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import s21.maslynem.model.creditCalculator.AnnuityCredit;
+import s21.maslynem.model.creditCalculator.CreditCalculator;
+import s21.maslynem.model.creditCalculator.DifferentiatedCredit;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -49,6 +52,8 @@ public class CreditController implements Initializable {
     @FXML
     private Spinner<Integer> sumSpinner;
 
+    private CreditCalculator calculator;
+
     private SceneController sceneController;
 
     public void initScreenController(SceneController sceneController) {
@@ -64,12 +69,39 @@ public class CreditController implements Initializable {
     void onGraphClicked() {
         sceneController.activate("Graph");
     }
+
     @FXML
     void onSettingsClicked() {
         Stage stage = sceneController.getModalityStage("Settings");
         stage.show();
     }
 
+    @FXML
+    void onCalcClicked() {
+        double sum = Double.parseDouble(sumSpinner.getEditor().getText());
+        double creditRate = Double.parseDouble(rate.getEditor().getText());
+        double term = Double.parseDouble(creditTerm.getEditor().getText());
+        if (choiceBox.getValue().equals("Лет")) {
+            term *= 12;
+        }
+        if (annuity.isSelected()) {
+            countAnnuityCredit(sum, creditRate, term);
+        } else {
+
+        }
+    }
+
+    private void countAnnuityCredit(double sum, double creditRate, double term) {
+        AnnuityCredit annuityCredit = calculator.countAnnuityCredit(sum, creditRate, term);
+        monthlyPayment.setText(String.format("%.2f", annuityCredit.getMonthPay()));
+        percentages.setText(String.format("%.2f", annuityCredit.getDebt()));
+        allSum.setText(String.format("%.2f", annuityCredit.getAllSum()));
+    }
+
+    private void countDifferentiatedCredit(double sum, double creditRate, double term) {
+        DifferentiatedCredit differentiatedCredit = calculator.countDifferentiatedCredit(sum, creditRate, term);
+        //todo
+    }
 
 
     @Override
@@ -111,8 +143,11 @@ public class CreditController implements Initializable {
             }
         });
 
-        choiceBox.getItems().addAll("Лет" , "Мес.");
+        choiceBox.getItems().addAll("Лет", "Мес.");
         choiceBox.setValue("Лет");
+    }
 
+    public void initModel(CreditCalculator calculator) {
+        this.calculator = calculator;
     }
 }
