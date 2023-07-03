@@ -9,9 +9,8 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import s21.maslynem.model.Calculator;
-import s21.maslynem.model.HistoryOfModel;
-import s21.maslynem.model.WrongExpressionException;
+import s21.maslynem.model.calculator.Calculator;
+import s21.maslynem.model.exceptions.WrongExpressionException;
 
 import java.net.URL;
 import java.nio.file.Path;
@@ -83,8 +82,8 @@ public class CalculatorController implements Initializable {
         history.setCellValueFactory(param -> new ReadOnlyStringWrapper(param.getValue()));
     }
 
-    public void initModel(Path path) {
-        calculator = new Calculator(path);
+    public void initModel(Calculator calculator) {
+        this.calculator = calculator;
         historyTable.setItems(calculator.getHistoryContent());
     }
 

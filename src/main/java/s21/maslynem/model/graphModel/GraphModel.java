@@ -1,11 +1,12 @@
-package s21.maslynem.model;
+package s21.maslynem.model.graphModel;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.chart.XYChart;
+import s21.maslynem.model.calculator.Calculator;
 
 public class GraphModel {
-    private Calculator calculator;
+    private final Calculator calculator;
 
      public GraphModel() {
          calculator = new Calculator();

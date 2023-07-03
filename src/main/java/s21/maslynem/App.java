@@ -9,10 +9,9 @@ import s21.maslynem.controllers.CalculatorController;
 import s21.maslynem.controllers.CreditController;
 import s21.maslynem.controllers.GraphController;
 import s21.maslynem.controllers.SceneController;
-import s21.maslynem.model.HistoryOfModel;
+import s21.maslynem.model.calculator.Calculator;
 
 import java.io.*;
-import java.net.URISyntaxException;
 import java.nio.file.Paths;
 
 public class App extends Application {
@@ -39,7 +38,9 @@ public class App extends Application {
         sceneController.activate("Calculator");
 
         CalculatorController calculatorController = calculatorLoader.getController();
-        calculatorController.initModel(Paths.get(getPath() + "/history.txt"));
+        Calculator calculator = new Calculator(Paths.get("temp/history.txt").toAbsolutePath());
+
+        calculatorController.initModel(calculator);
         calculatorController.initSceneController(sceneController);
 
         GraphController graphController = graphLoader.getController();
@@ -51,17 +52,8 @@ public class App extends Application {
         stage.setScene(sceneController.getMainScene());
         stage.show();
 
-        stage.setOnCloseRequest(event ->calculatorController.saveHistoryOfModel(Paths.get(getPath() + "/history.txt")));
+        stage.setOnCloseRequest(event ->calculatorController.saveHistoryOfModel(Paths.get("temp/history.txt").toAbsolutePath()));
         stage.setResizable(false);
 
-    }
-
-    private String getPath() {
-        try {
-            return new File(App.class.getProtectionDomain().getCodeSource().getLocation()
-                    .toURI()).getParent();
-        } catch (URISyntaxException ignored) {
-            return "";
-        }
     }
 }

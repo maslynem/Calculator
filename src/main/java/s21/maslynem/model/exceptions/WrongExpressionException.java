@@ -1,4 +1,4 @@
-package s21.maslynem.model;
+package s21.maslynem.model.exceptions;
 
 public class WrongExpressionException extends RuntimeException {
     public WrongExpressionException(String message) {

@@ -1,8 +1,8 @@
-package s21.maslynem.model;
+package s21.maslynem.model.utils;
 
 import java.util.Arrays;
 
-class StringUtils {
+public class StringUtils {
     private static final String OPERATORS = "%*+-~/^";
     private static final String[] FUNCTIONS = {"acos", "asin", "atan", "cos", "ctg", "ln", "log", "sin", "sqrt", "tan"};
     private static final String OPEN_BRACKET = "(";
@@ -10,7 +10,7 @@ class StringUtils {
 
     private StringUtils() { }
 
-     static boolean isOperand(String string) {
+     static public boolean isOperand(String string) {
         try {
             Double.parseDouble(string);
             return true;
@@ -19,19 +19,19 @@ class StringUtils {
         }
     }
 
-     static boolean isOperator(String string) {
+     static public boolean isOperator(String string) {
         return string.length() == 1 && OPERATORS.contains(string);
     }
 
-     static boolean isOpenBracket(String string) {
+     static public boolean isOpenBracket(String string) {
         return OPEN_BRACKET.equals(string);
     }
 
-     static boolean isCloseBracket(String string) {
+     static public boolean isCloseBracket(String string) {
         return CLOSE_BRACKET.equals(string);
     }
 
-     static boolean isFunction(String string) {
+     static public boolean isFunction(String string) {
         return Arrays.binarySearch(FUNCTIONS, string) >= 0;
     }
 }

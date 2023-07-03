@@ -12,7 +12,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import s21.maslynem.model.GraphModel;
+import s21.maslynem.model.graphModel.GraphModel;
 
 import java.net.URL;
 import java.util.ResourceBundle;

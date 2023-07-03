@@ -1,13 +1,15 @@
-package s21.maslynem.model;
+package s21.maslynem.model.calculator;
 
 import javafx.collections.ObservableList;
+import s21.maslynem.model.exceptions.WrongExpressionException;
+import s21.maslynem.model.utils.StringUtils;
 
 import java.nio.file.Path;
 import java.util.*;
 
 public class Calculator {
 
-    private HistoryOfModel history;
+    private final HistoryOfModel history;
 
     public Calculator() {
         history = new HistoryOfModel();
@@ -15,7 +17,7 @@ public class Calculator {
 
     public Calculator(Path path) {
         this();
-        history.tryToLoadDataFromFile(path);
+        loadHistory(path);
     }
 
     public double calculate(String expression, boolean saveHistory) {

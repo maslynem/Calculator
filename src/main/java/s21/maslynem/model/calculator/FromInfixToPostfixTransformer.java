@@ -1,4 +1,7 @@
-package s21.maslynem.model;
+package s21.maslynem.model.calculator;
+
+import s21.maslynem.model.exceptions.WrongExpressionException;
+import s21.maslynem.model.utils.StringUtils;
 
 import java.util.*;
 
