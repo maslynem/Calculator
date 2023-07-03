@@ -3,7 +3,7 @@ package s21.maslynem.model;
 import java.util.Arrays;
 
 class StringUtils {
-    private static final String OPERATORS = "%*+-/^";
+    private static final String OPERATORS = "%*+-~/^";
     private static final String[] FUNCTIONS = {"acos", "asin", "atan", "cos", "ctg", "ln", "log", "sin", "sqrt", "tan"};
     private static final String OPEN_BRACKET = "(";
     private static final String CLOSE_BRACKET = ")";

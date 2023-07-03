@@ -72,23 +72,27 @@ public class Calculator {
     }
 
     private  double executeOperator(Deque<Double> stack, String operator) {
-        double secondOperand = stack.pop();
-        double firstOperand = stack.pop();
-        switch (operator) {
-            case "+":
-                return firstOperand + secondOperand;
-            case "-":
-                return firstOperand - secondOperand;
-            case "*":
-                return firstOperand * secondOperand;
-            case "/":
-                return firstOperand / secondOperand;
-            case "^":
-                return Math.pow(firstOperand, secondOperand);
-            case "%":
-                return firstOperand % secondOperand;
+        if (operator.equals("~")) {
+            return 0 - stack.pop();
+        } else {
+            double secondOperand = stack.pop();
+            double firstOperand = stack.pop();
+            switch (operator) {
+                case "+":
+                    return firstOperand + secondOperand;
+                case "-":
+                    return firstOperand - secondOperand;
+                case "*":
+                    return firstOperand * secondOperand;
+                case "/":
+                    return firstOperand / secondOperand;
+                case "^":
+                    return Math.pow(firstOperand, secondOperand);
+                case "%":
+                    return firstOperand % secondOperand;
+            }
+            return Double.POSITIVE_INFINITY;
         }
-        return Double.POSITIVE_INFINITY;
     }
 
     private  double executeFunction(Deque<Double> stack, String function) {

@@ -19,9 +19,17 @@ class FromInfixToPostfixTransformer {
                 .replace("π", String.valueOf(Math.PI))
                 .replace("√", "sqrt")
                 .replace(",", ".")
-                .replace("(-", "(0-")
-                .replace(".-", ".0-")
-                .replace("(+", "(");
+                .replace("(-", "(~")
+                .replace("+-", "+~")
+                .replace("*-", "*~")
+                .replace("%-", "%~")
+                .replace("/-", "/~")
+                .replace("(+", "(")
+                .replace("-+", "-")
+                .replace("~+", "-")
+                .replace("*+", "*")
+                .replace("%+", "%")
+                .replace("/+", "/");
         char ch = newExpression.charAt(0);
         if (ch == '-' || ch == '+') {
             newExpression = "0" + newExpression;
@@ -32,11 +40,11 @@ class FromInfixToPostfixTransformer {
     private static List<String> castToPostfix(String expression) {
         List<String> postfix = new ArrayList<>();
         Deque<String> stack = new ArrayDeque<>();
-        StringTokenizer tokens = new StringTokenizer(expression, "%*+-/^()e", true);
+        StringTokenizer tokens = new StringTokenizer(expression, "%*+-~/^()e", true);
         while (tokens.hasMoreTokens()) {
             String token = tokens.nextToken();
             if (token.equals("e")) {
-                handleExpCase(token, tokens.nextToken(), postfix);
+                handleExpCase(token, tokens, postfix);
             } else if (StringUtils.isOperand(token)) {
                 postfix.add(token);
             } else if (StringUtils.isFunction(token)) {
@@ -61,16 +69,16 @@ class FromInfixToPostfixTransformer {
         return postfix;
     }
 
-    private static void handleExpCase(String token, String nextToken, List<String> postfix) {
+    private static void handleExpCase(String token, StringTokenizer tokens, List<String> postfix) {
         String operand = postfix.get(postfix.size() - 1);
         postfix.remove(postfix.size() - 1);
-        postfix.add(operand + token + nextToken + nextToken);
+        postfix.add(operand + token + tokens.nextToken() + tokens.nextToken());
     }
 
     private static void handleOperatorCase(String token, Deque<String> stack, List<String> postfix) {
         while (!stack.isEmpty() && StringUtils.isOperator(stack.peek()) &&
                 (getOperatorPriority(stack.peek()) > getOperatorPriority(token) ||
-                        getOperatorPriority(stack.peek()) == getOperatorPriority(token) && token.equals("^"))) {
+                        getOperatorPriority(stack.peek()) == getOperatorPriority(token) && !token.equals("^"))) {
             postfix.add(stack.pop());
         }
         stack.push(token);
@@ -82,7 +90,7 @@ class FromInfixToPostfixTransformer {
                 postfix.add(stack.pop());
             }
             stack.pop();
-            if (StringUtils.isFunction(stack.peek())) {
+            if (!stack.isEmpty() && StringUtils.isFunction(stack.peek())) {
                 postfix.add(stack.pop());
             }
         } catch (NoSuchElementException exception) {
@@ -113,6 +121,8 @@ class FromInfixToPostfixTransformer {
             case "sqrt":
             case "tan":
                 return 4;
+            case "~":
+                return 5;
             default:
                 return -1;
         }
