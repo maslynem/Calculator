@@ -9,7 +9,7 @@ import s21.maslynem.controllers.CalculatorController;
 import s21.maslynem.controllers.CreditController;
 import s21.maslynem.controllers.GraphController;
 import s21.maslynem.controllers.SceneController;
-import s21.maslynem.model.DataModel;
+import s21.maslynem.model.HistoryOfModel;
 
 import java.io.*;
 import java.net.URISyntaxException;
@@ -39,10 +39,8 @@ public class App extends Application {
         sceneController.activate("Calculator");
 
         CalculatorController calculatorController = calculatorLoader.getController();
-        DataModel dataModel = new DataModel();
-        dataModel.tryToLoadDataFromFile(Paths.get(getPath() + "/history.txt"));
-        calculatorController.initModel(dataModel);
-        calculatorController.initScreenController(sceneController);
+        calculatorController.initModel(Paths.get(getPath() + "/history.txt"));
+        calculatorController.initSceneController(sceneController);
 
         GraphController graphController = graphLoader.getController();
         graphController.initScreenController(sceneController);
@@ -53,7 +51,7 @@ public class App extends Application {
         stage.setScene(sceneController.getMainScene());
         stage.show();
 
-        stage.setOnCloseRequest(event -> dataModel.saveDataToFile(Paths.get(getPath() + "/history.txt")));
+        stage.setOnCloseRequest(event ->calculatorController.saveHistoryOfModel(Paths.get(getPath() + "/history.txt")));
         stage.setResizable(false);
 
     }

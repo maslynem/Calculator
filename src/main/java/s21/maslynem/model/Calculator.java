@@ -1,16 +1,53 @@
 package s21.maslynem.model;
 
+import javafx.collections.ObservableList;
+
+import java.nio.file.Path;
 import java.util.*;
 
 public class Calculator {
 
-    private Calculator() {}
-    public static double calculate(String expression) {
+    private HistoryOfModel history;
+
+    public Calculator() {
+        history = new HistoryOfModel();
+    }
+
+    public Calculator(Path path) {
+        this();
+        history.tryToLoadDataFromFile(path);
+    }
+
+    public double calculate(String expression, boolean saveHistory) {
+        double result = calculate(expression);
+        if (saveHistory) {
+            history.addNewData(expression + "=" + result);
+        }
+        return result;
+    }
+
+    public void loadHistory(Path path) {
+        history.tryToLoadDataFromFile(path);
+    }
+
+    public void saveHistory(Path path) {
+        history.saveDataToFile(path);
+    }
+
+    public void clearHistory() {
+        history.clearHistory();
+    }
+
+    public ObservableList<String> getHistoryContent() {
+        return history.getHistory();
+    }
+
+    private double calculate(String expression) {
         List<String> postfix = FromInfixToPostfixTransformer.transform(expression);
         return calculateByPostfix(postfix);
     }
 
-    private static double calculateByPostfix(List<String> postfix) {
+    private double calculateByPostfix(List<String> postfix) {
         try {
             Deque<Double> stack = new ArrayDeque<>();
             for (String token : postfix) {
@@ -34,11 +71,7 @@ public class Calculator {
         }
     }
 
-
-
-
-
-    private static double executeOperator(Deque<Double> stack, String operator) {
+    private  double executeOperator(Deque<Double> stack, String operator) {
         double secondOperand = stack.pop();
         double firstOperand = stack.pop();
         switch (operator) {
@@ -58,7 +91,7 @@ public class Calculator {
         return Double.POSITIVE_INFINITY;
     }
 
-    private static double executeFunction(Deque<Double> stack, String function) {
+    private  double executeFunction(Deque<Double> stack, String function) {
         double operand = stack.pop();
         switch (function) {
             case "acos":

@@ -9,7 +9,7 @@ import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 
-public class DataModel implements Serializable {
+public class HistoryOfModel implements Serializable {
     private ObservableList<String> history = FXCollections.observableArrayList();
 
     public ObservableList<String> getHistory() {
@@ -36,8 +36,8 @@ public class DataModel implements Serializable {
         try (InputStream inputStream = Files.newInputStream(path, StandardOpenOption.CREATE);
              ObjectInputStream is = new ObjectInputStream(inputStream)
         ) {
-            DataModel dataModel = (DataModel) is.readObject();
-            this.history = dataModel.history;
+            HistoryOfModel historyOfModel = (HistoryOfModel) is.readObject();
+            this.history = historyOfModel.history;
         } catch (IOException | ClassNotFoundException ignored) {
         }
     }

@@ -10,10 +10,11 @@ import javafx.stage.Stage;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import s21.maslynem.model.Calculator;
-import s21.maslynem.model.DataModel;
+import s21.maslynem.model.HistoryOfModel;
 import s21.maslynem.model.WrongExpressionException;
 
 import java.net.URL;
+import java.nio.file.Path;
 import java.util.EmptyStackException;
 import java.util.ResourceBundle;
 
@@ -27,7 +28,7 @@ public class CalculatorController implements Initializable {
     @FXML
     private TableColumn<String, String> history;
 
-    private DataModel dataModel;
+    private Calculator calculator;
 
     private SceneController sceneController;
 
@@ -56,8 +57,7 @@ public class CalculatorController implements Initializable {
         String inputText = inputField.getText();
         if (!inputText.isEmpty()) {
             try {
-                result = Calculator.calculate(inputText);
-                dataModel.addNewData(inputText + "=" + result);
+                result = calculator.calculate(inputText, true);
                 LOGGER.info(inputText + "=" + result);
                 inputField.setText(String.valueOf(result));
             } catch (WrongExpressionException | EmptyStackException exception) {
@@ -83,18 +83,22 @@ public class CalculatorController implements Initializable {
         history.setCellValueFactory(param -> new ReadOnlyStringWrapper(param.getValue()));
     }
 
-    public void initModel(DataModel dataModel) {
-        this.dataModel = dataModel;
-        historyTable.setItems(dataModel.getHistory());
+    public void initModel(Path path) {
+        calculator = new Calculator(path);
+        historyTable.setItems(calculator.getHistoryContent());
     }
 
-    public void initScreenController(SceneController sceneController) {
+    public void saveHistoryOfModel(Path path) {
+        calculator.saveHistory(path);
+    }
+
+    public void initSceneController(SceneController sceneController) {
         this.sceneController = sceneController;
     }
 
     @FXML
     void onClearHistoryClicked() {
-        dataModel.clearHistory();
+        calculator.clearHistory();
     }
 
     @FXML
