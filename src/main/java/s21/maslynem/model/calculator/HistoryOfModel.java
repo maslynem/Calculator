@@ -43,9 +43,14 @@ public class HistoryOfModel implements Serializable {
     }
 
     public void saveDataToFile(Path path) {
-        try (OutputStream fileOutputStream = Files.newOutputStream(path, StandardOpenOption.CREATE);
-             ObjectOutputStream os = new ObjectOutputStream(fileOutputStream)) {
-            os.writeObject(this);
+        try {
+            if (!Files.exists(path.getParent())) {
+                Files.createDirectory(path.getParent());
+            }
+            try (OutputStream fileOutputStream = Files.newOutputStream(path, StandardOpenOption.CREATE);
+                 ObjectOutputStream os = new ObjectOutputStream(fileOutputStream)) {
+                os.writeObject(this);
+            }
         } catch (IOException ignored) {
         }
     }

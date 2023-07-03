@@ -10,6 +10,7 @@ import s21.maslynem.controllers.CreditController;
 import s21.maslynem.controllers.GraphController;
 import s21.maslynem.controllers.SceneController;
 import s21.maslynem.model.calculator.Calculator;
+import s21.maslynem.model.graphModel.GraphModel;
 
 import java.io.*;
 import java.nio.file.Paths;
@@ -38,12 +39,14 @@ public class App extends Application {
         sceneController.activate("Calculator");
 
         CalculatorController calculatorController = calculatorLoader.getController();
-        Calculator calculator = new Calculator(Paths.get("temp/history.txt").toAbsolutePath());
+        Calculator calculator = new Calculator(Paths.get("history/history.txt").toAbsolutePath());
 
         calculatorController.initModel(calculator);
         calculatorController.initSceneController(sceneController);
 
         GraphController graphController = graphLoader.getController();
+        GraphModel graphModel = new GraphModel(calculator);
+        graphController.initModel(graphModel);
         graphController.initScreenController(sceneController);
 
         CreditController creditController = creditLoader.getController();
@@ -52,7 +55,7 @@ public class App extends Application {
         stage.setScene(sceneController.getMainScene());
         stage.show();
 
-        stage.setOnCloseRequest(event ->calculatorController.saveHistoryOfModel(Paths.get("temp/history.txt").toAbsolutePath()));
+        stage.setOnCloseRequest(event ->calculatorController.saveHistoryOfModel(Paths.get("history/history.txt").toAbsolutePath()));
         stage.setResizable(false);
 
     }

@@ -75,7 +75,10 @@ public class GraphController implements Initializable {
         addMaxValueListener(maxY);
         xAxis.setAutoRanging(false);
         yAxis.setAutoRanging(false);
-        graphModel = new GraphModel();
+    }
+
+    public void initModel(GraphModel graphModel) {
+        this.graphModel = graphModel;
     }
 
     @FXML

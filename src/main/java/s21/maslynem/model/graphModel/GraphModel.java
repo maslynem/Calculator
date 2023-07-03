@@ -8,8 +8,8 @@ import s21.maslynem.model.calculator.Calculator;
 public class GraphModel {
     private final Calculator calculator;
 
-     public GraphModel() {
-         calculator = new Calculator();
+     public GraphModel(Calculator calculator) {
+         this.calculator = calculator;
     }
 
     public ObservableList<XYChart.Data<Number, Number>> getGraphData(int minX, int maxX, String expression) {
@@ -18,7 +18,9 @@ public class GraphModel {
         for (double i = minX; i <= maxX; i += h) {
             try {
                 double value = calculator.calculate(expression.replace("x", "(" + i + ")"), false);
-                data.add(new XYChart.Data<>(i, value));
+                if (Double.isFinite(value)) {
+                    data.add(new XYChart.Data<>(i, value));
+                }
             } catch (Exception ignored) {
             }
         }
