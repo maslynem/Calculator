@@ -42,6 +42,8 @@ public class GraphController implements Initializable {
     @FXML
     private TextField minY;
 
+    private GraphModel graphModel;
+
     private SceneController sceneController;
 
     private static final Logger LOGGER = LogManager.getLogger(GraphController.class);
@@ -73,6 +75,7 @@ public class GraphController implements Initializable {
         addMaxValueListener(maxY);
         xAxis.setAutoRanging(false);
         yAxis.setAutoRanging(false);
+        graphModel = new GraphModel();
     }
 
     @FXML
@@ -92,7 +95,7 @@ public class GraphController implements Initializable {
             XYChart.Series<Number, Number> series = new XYChart.Series<>();
 
             String expression = inputField.getText();
-            ObservableList<XYChart.Data<Number, Number>> dataList = GraphModel.getGraphData(minx, maxx, inputField.getText());
+            ObservableList<XYChart.Data<Number, Number>> dataList = graphModel.getGraphData(minx, maxx, inputField.getText());
             if (dataList.isEmpty()) {
                 LOGGER.error("Wrong expression: " + expression);
                 inputField.setText("Wrong expression: " + expression);
