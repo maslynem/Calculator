@@ -6,8 +6,11 @@ import java.util.List;
 public class CreditCalculator {
 
     public AnnuityCredit countAnnuityCredit(double sum, double rate, double date) {
+        if (sum <= 0 || rate <= 0 || date <= 0) {
+            throw new IllegalArgumentException();
+        }
         double i = rate / 1200;
-        double monthPay = sum * ((i * Math.pow((1 + i), date)) / ((Math.pow((1 + i), date) - 1)));
+        double monthPay = sum * ((i * Math.pow((1 + i), date)) / (Math.pow((1 + i), date) - 1));
         monthPay = Math.round(monthPay * 100) / 100.;
         double debt = monthPay * date - sum;
         double allSum = monthPay * date;
@@ -15,6 +18,9 @@ public class CreditCalculator {
     }
 
     public DifferentiatedCredit countDifferentiatedCredit(double sum, double rate, double date) {
+        if (sum <= 0 || rate <= 0 || date <= 0) {
+            throw new IllegalArgumentException();
+        }
         double allSum = 0;
         double debt = 0;
         List<Double> monthPay = new ArrayList<>();
