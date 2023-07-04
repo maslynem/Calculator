@@ -13,7 +13,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <log4j2.version>2.20.0</log4j2.version>
         <junit.version>5.9.2</junit.version>
-        <javafx.version>19.0.2</javafx.version>
+        <javafx.version>17.0.7</javafx.version>
     </properties>
 
     <dependencies>

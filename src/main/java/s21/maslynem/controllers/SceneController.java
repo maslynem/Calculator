@@ -29,14 +29,10 @@ public class SceneController {
     }
 
     public Stage getModalityStage(String name) {
-        Scene scene = sceneMap.get(name);
-        if (scene == null) {
-            scene = new Scene(paneMap.get(name));
-            sceneMap.put(name, scene);
-        }
+        Scene scene = sceneMap.computeIfAbsent(name, value -> new Scene(paneMap.get(name)));
         Stage stage = new Stage();
         stage.setScene(scene);
-        stage.setTitle("Settings");
+        stage.setTitle(name);
         stage.initModality(Modality.WINDOW_MODAL);
         stage.initOwner(main.getWindow());
         stage.setResizable(false);

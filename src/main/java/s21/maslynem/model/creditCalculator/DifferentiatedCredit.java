@@ -1,5 +1,6 @@
 package s21.maslynem.model.creditCalculator;
 
+import java.util.Collections;
 import java.util.List;
 
 public class DifferentiatedCredit {
@@ -22,6 +23,6 @@ public class DifferentiatedCredit {
     }
 
     public List<Double> getMonthPay() {
-        return monthPay;
+        return Collections.unmodifiableList(monthPay);
     }
 }

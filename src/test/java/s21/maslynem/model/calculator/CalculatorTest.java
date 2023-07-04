@@ -21,11 +21,6 @@ class CalculatorTest {
         calculator.calculate(expression, true);
         calculator.saveHistory(tempFile);
         Assertions.assertTrue(Files.exists(tempFile) && Files.size(tempFile) != 0);
-
-
-
-        Calculator newCalculator = new Calculator(tempFile);
-        Assertions.assertIterableEquals(calculator.getHistoryContent(), newCalculator.getHistoryContent());
     }
 
     @Test

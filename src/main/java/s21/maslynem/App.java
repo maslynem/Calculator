@@ -26,17 +26,18 @@ public class App extends Application {
     public void start(Stage stage) throws IOException {
 
         FXMLLoader calculatorLoader = new FXMLLoader(getClass().getResource("/fxml/calculator_window.fxml"));
-        Pane calcPane = calculatorLoader.load();
         FXMLLoader graphLoader = new FXMLLoader(getClass().getResource("/fxml/graph_window.fxml"));
         FXMLLoader settingsLoader = new FXMLLoader(getClass().getResource("/fxml/settings_window.fxml"));
         FXMLLoader creditLoader = new FXMLLoader(getClass().getResource("/fxml/credit_window.fxml"));
 
+        Pane calcPane = calculatorLoader.load();
         SceneController sceneController = new SceneController(new Scene(calcPane));
 
         sceneController.addPane("Calculator", calcPane);
         sceneController.addPane("Graph", graphLoader.load());
         sceneController.addPane("Settings", settingsLoader.load());
         sceneController.addPane("Credit", creditLoader.load());
+        sceneController.addPane("DifferentiatedCreditList", new Pane());
         sceneController.activate("Calculator");
 
         CalculatorController calculatorController = calculatorLoader.getController();

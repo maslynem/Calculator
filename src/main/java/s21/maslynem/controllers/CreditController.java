@@ -3,7 +3,10 @@ package s21.maslynem.controllers;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.layout.Pane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -12,7 +15,10 @@ import s21.maslynem.model.creditCalculator.CreditCalculator;
 import s21.maslynem.model.creditCalculator.DifferentiatedCredit;
 
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Collectors;
 
 public class CreditController implements Initializable {
 
@@ -54,6 +60,8 @@ public class CreditController implements Initializable {
 
     private CreditCalculator calculator;
 
+    private DifferentiatedCredit differentiatedCredit;
+
     private SceneController sceneController;
 
     public void initScreenController(SceneController sceneController) {
@@ -87,11 +95,12 @@ public class CreditController implements Initializable {
         if (annuity.isSelected()) {
             countAnnuityCredit(sum, creditRate, term);
         } else {
-
+            countDifferentiatedCredit(sum, creditRate, term);
         }
     }
 
     private void countAnnuityCredit(double sum, double creditRate, double term) {
+        showButton.setVisible(false);
         AnnuityCredit annuityCredit = calculator.countAnnuityCredit(sum, creditRate, term);
         monthlyPayment.setText(String.format("%.2f", annuityCredit.getMonthPay()));
         percentages.setText(String.format("%.2f", annuityCredit.getDebt()));
@@ -99,13 +108,35 @@ public class CreditController implements Initializable {
     }
 
     private void countDifferentiatedCredit(double sum, double creditRate, double term) {
-        DifferentiatedCredit differentiatedCredit = calculator.countDifferentiatedCredit(sum, creditRate, term);
-        //todo
+        showButton.setVisible(true);
+        differentiatedCredit = calculator.countDifferentiatedCredit(sum, creditRate, term);
+        List<Double> monthPay = differentiatedCredit.getMonthPay();
+        monthlyPayment.setText(String.format("%.2f...%.2f", monthPay.get(0), monthPay.get(monthPay.size()-1)));
+        percentages.setText(String.format("%.2f", differentiatedCredit.getDebt()));
+        allSum.setText(String.format("%.2f", differentiatedCredit.getAllSum()));
     }
 
 
+    @FXML
+    void onShowClicked() {
+        Pane pane = sceneController.getPaneByName("DifferentiatedCreditList");
+        ListView<String> listView = new ListView<>();
+        listView.setMinHeight(pane.getMaxHeight());
+        listView.setMinWidth(pane.getMaxWidth());
+        AtomicInteger i = new AtomicInteger(1);
+        List<String> l = differentiatedCredit.getMonthPay()
+                .stream()
+                .map(x -> String.format("%d месяц %.2f",i.getAndIncrement(), x)).collect(Collectors.toList());
+        listView.getItems().addAll(l);
+        pane.getChildren().add(listView);
+        Stage stage = sceneController.getModalityStage("DifferentiatedCreditList");
+        stage.show();
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        showButton.setVisible(false);
+
         sumSpinner.getEditor().textProperty().addListener((observable, oldValue, newValue) -> {
             try {
                 long value = Long.parseLong(newValue);
