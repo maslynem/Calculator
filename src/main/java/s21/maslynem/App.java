@@ -29,6 +29,7 @@ public class App extends Application {
         FXMLLoader graphLoader = new FXMLLoader(getClass().getResource("/fxml/graph_window.fxml"));
         FXMLLoader settingsLoader = new FXMLLoader(getClass().getResource("/fxml/settings_window.fxml"));
         FXMLLoader creditLoader = new FXMLLoader(getClass().getResource("/fxml/credit_window.fxml"));
+        FXMLLoader helpLoader = new FXMLLoader(getClass().getResource("/fxml/help_window.fxml"));
 
         Pane calcPane = calculatorLoader.load();
         SceneController sceneController = new SceneController(new Scene(calcPane));
@@ -36,6 +37,7 @@ public class App extends Application {
         sceneController.addPane("Calculator", calcPane);
         sceneController.addPane("Graph", graphLoader.load());
         sceneController.addPane("Settings", settingsLoader.load());
+        sceneController.addPane("Help", helpLoader.load());
         sceneController.addPane("Credit", creditLoader.load());
         sceneController.addPane("DifferentiatedCreditList", new Pane());
         sceneController.activate("Calculator");

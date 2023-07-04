@@ -31,7 +31,6 @@ class CreditCalculatorTest {
         Assertions.assertThrows(IllegalArgumentException.class, () -> calculator.countAnnuityCredit(50000, 8.5, -45));
     }
 
-
     @Test
     void CountDifferentiatedCredit_CorrectArguments_ShouldReturnCorrectResult() {
         DifferentiatedCredit differentiatedCredit = calculator.countDifferentiatedCredit(50000, 8.5, 10);
