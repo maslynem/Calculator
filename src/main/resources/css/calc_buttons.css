@@ -1,0 +1,29 @@
+.operators_button {
+    -fx-text-fill: #FFFFFF;
+    -fx-background-color: rgb(254 ,147, 64);
+    -fx-background-radius: 0;
+    -fx-border-color: grey;
+    -fx-border-radius: 1;
+}
+.operators_button:hover {
+    -fx-background-color: rgb(202, 116, 49);
+}
+
+.operators_button:pressed {
+    -fx-background-color: rgb(175, 100, 42);
+}
+
+.operands_button {
+    -fx-text-fill: black;
+    -fx-background-color: rgb(214 ,214, 214);
+    -fx-background-radius: 0;
+    -fx-border-color: grey;
+    -fx-border-radius: 1;
+}
+
+.operands_button:hover {
+    -fx-background-color: rgb(178 ,178, 178);
+}
+.operands_button:pressed {
+    -fx-background-color: rgb(138, 137, 137);
+}
