@@ -57,11 +57,11 @@ public class CalculatorController implements Initializable {
         if (!inputText.isEmpty()) {
             try {
                 result = calculator.calculate(inputText, true);
-                LOGGER.info(inputText + "=" + result);
+                LOGGER.info(String.format("%s=%f", inputText, result));
                 inputField.setText(String.valueOf(result));
             } catch (WrongExpressionException | EmptyStackException exception) {
                 inputField.setText(exception.getMessage());
-                LOGGER.error(inputText + " : " + exception.getMessage());
+                LOGGER.debug(String.format("%s : %s", inputText, exception.getMessage()));
             }
         }
     }
@@ -104,6 +104,7 @@ public class CalculatorController implements Initializable {
     void onGraphWindowClicked() {
         sceneController.activate("Graph");
     }
+
     @FXML
     void onCreditWindowClicked() {
         sceneController.activate("Credit");

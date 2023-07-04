@@ -57,10 +57,10 @@ public class Calculator {
                     stack.push(Double.parseDouble(token));
                 } else if (StringUtils.isOperator(token)) {
                     stack.push(executeOperator(stack, token));
-                } else if (StringUtils.isFunction(token)){
+                } else if (StringUtils.isFunction(token)) {
                     stack.push(executeFunction(stack, token));
                 } else {
-                    throw new WrongExpressionException("Wrong expression: undefined token [" + token +"]");
+                    throw new WrongExpressionException("Wrong expression: undefined token [" + token + "]");
                 }
             }
             double result = stack.pop();
@@ -73,7 +73,7 @@ public class Calculator {
         }
     }
 
-    private  double executeOperator(Deque<Double> stack, String operator) {
+    private double executeOperator(Deque<Double> stack, String operator) {
         if (operator.equals("~")) {
             return 0 - stack.pop();
         } else {
@@ -97,7 +97,7 @@ public class Calculator {
         }
     }
 
-    private  double executeFunction(Deque<Double> stack, String function) {
+    private double executeFunction(Deque<Double> stack, String function) {
         double operand = stack.pop();
         switch (function) {
             case "acos":

@@ -29,7 +29,7 @@ public class SettingsController implements Initializable {
 
     private RadioButton lastSelected;
 
-    private static final Logger LOGGER = LogManager.getLogger(CalculatorController.class);
+    private static final Logger LOGGER = LogManager.getLogger(SettingsController.class);
 
     @FXML
     void onChanged(MouseEvent event) {

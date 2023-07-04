@@ -1,15 +1,10 @@
 package s21.maslynem.controllers;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.Pane;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import s21.maslynem.model.creditCalculator.AnnuityCredit;
 import s21.maslynem.model.creditCalculator.CreditCalculator;
 import s21.maslynem.model.creditCalculator.DifferentiatedCredit;
@@ -29,19 +24,10 @@ public class CreditController implements Initializable {
     private RadioButton annuity;
 
     @FXML
-    private Button calcButton;
-
-    @FXML
     private ChoiceBox<String> choiceBox;
 
     @FXML
     private Spinner<Integer> creditTerm;
-
-    @FXML
-    private ToggleGroup creditType;
-
-    @FXML
-    private RadioButton differentiated;
 
     @FXML
     private TextField monthlyPayment;
@@ -111,7 +97,7 @@ public class CreditController implements Initializable {
         showButton.setVisible(true);
         differentiatedCredit = calculator.countDifferentiatedCredit(sum, creditRate, term);
         List<Double> monthPay = differentiatedCredit.getMonthPay();
-        monthlyPayment.setText(String.format("%.2f...%.2f", monthPay.get(0), monthPay.get(monthPay.size()-1)));
+        monthlyPayment.setText(String.format("%.2f...%.2f", monthPay.get(0), monthPay.get(monthPay.size() - 1)));
         percentages.setText(String.format("%.2f", differentiatedCredit.getDebt()));
         allSum.setText(String.format("%.2f", differentiatedCredit.getAllSum()));
     }
@@ -126,7 +112,7 @@ public class CreditController implements Initializable {
         AtomicInteger i = new AtomicInteger(1);
         List<String> l = differentiatedCredit.getMonthPay()
                 .stream()
-                .map(x -> String.format("%d месяц %.2f",i.getAndIncrement(), x)).collect(Collectors.toList());
+                .map(x -> String.format("%d месяц %.2f", i.getAndIncrement(), x)).collect(Collectors.toList());
         listView.getItems().addAll(l);
         pane.getChildren().add(listView);
         Stage stage = sceneController.getModalityStage("DifferentiatedCreditList");

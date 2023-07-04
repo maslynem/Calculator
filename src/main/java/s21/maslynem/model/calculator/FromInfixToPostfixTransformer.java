@@ -6,7 +6,6 @@ import s21.maslynem.model.utils.StringUtils;
 import java.util.*;
 
 class FromInfixToPostfixTransformer {
-
     private FromInfixToPostfixTransformer() {
     }
 

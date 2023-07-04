@@ -10,7 +10,7 @@ public class StringUtils {
 
     private StringUtils() { }
 
-     static public boolean isOperand(String string) {
+    public static boolean isOperand(String string) {
         try {
             Double.parseDouble(string);
             return true;
@@ -19,19 +19,19 @@ public class StringUtils {
         }
     }
 
-     static public boolean isOperator(String string) {
+    public static boolean isOperator(String string) {
         return string.length() == 1 && OPERATORS.contains(string);
     }
 
-     static public boolean isOpenBracket(String string) {
+    public static boolean isOpenBracket(String string) {
         return OPEN_BRACKET.equals(string);
     }
 
-     static public boolean isCloseBracket(String string) {
+    public static boolean isCloseBracket(String string) {
         return CLOSE_BRACKET.equals(string);
     }
 
-     static public boolean isFunction(String string) {
+    public static boolean isFunction(String string) {
         return Arrays.binarySearch(FUNCTIONS, string) >= 0;
     }
 }

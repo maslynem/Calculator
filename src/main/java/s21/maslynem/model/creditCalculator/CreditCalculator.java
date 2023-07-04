@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CreditCalculator {
-
     public AnnuityCredit countAnnuityCredit(double sum, double rate, double date) {
         if (sum <= 0 || rate <= 0 || date <= 0) {
             throw new IllegalArgumentException();

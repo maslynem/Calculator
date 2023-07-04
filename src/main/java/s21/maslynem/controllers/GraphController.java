@@ -100,7 +100,7 @@ public class GraphController implements Initializable {
             String expression = inputField.getText();
             ObservableList<XYChart.Data<Number, Number>> dataList = graphModel.getGraphData(minx, maxx, inputField.getText());
             if (dataList.isEmpty()) {
-                LOGGER.error("Wrong expression: " + expression);
+                LOGGER.debug("Wrong expression: " + expression);
                 inputField.setText("Wrong expression: " + expression);
             } else {
                 LOGGER.info(expression);

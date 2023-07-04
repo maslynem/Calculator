@@ -4,8 +4,8 @@ import java.util.Collections;
 import java.util.List;
 
 public class DifferentiatedCredit {
-    private double allSum = 0;
-    private double debt = 0;
+    private double allSum;
+    private double debt;
     private List<Double> monthPay;
 
     public DifferentiatedCredit(double allSum, double debt, List<Double> monthPay) {
