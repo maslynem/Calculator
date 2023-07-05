@@ -15,6 +15,7 @@ import java.io.InputStreamReader;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class SettingsController implements Initializable {
@@ -33,26 +34,26 @@ public class SettingsController implements Initializable {
 
     @FXML
     void onChanged(MouseEvent event) {
-        RadioButton radioButton = (RadioButton) event.getSource();
-        if (radioButton.equals(hour) && !lastSelected.equals(hour)) {
-            rewriteLog4j2Fxml("0 0 * * * ?");
-            lastSelected = hour;
-        } else if (radioButton.equals(day) && !lastSelected.equals(day)) {
-            rewriteLog4j2Fxml("0 0 0 * * ?");
-            lastSelected = day;
-        } else if (radioButton.equals(month) && !lastSelected.equals(month)) {
-            rewriteLog4j2Fxml("0 0 0 1 * ?");
-            lastSelected = month;
-        }
-        Configurator.reconfigure();
-
+            RadioButton radioButton = (RadioButton) event.getSource();
+            if (radioButton.equals(hour) && !lastSelected.equals(hour)) {
+                rewriteLog4j2Fxml("0 0 * * * ?");
+                lastSelected = hour;
+            } else if (radioButton.equals(day) && !lastSelected.equals(day)) {
+                rewriteLog4j2Fxml("0 0 0 * * ?");
+                lastSelected = day;
+            } else if (radioButton.equals(month) && !lastSelected.equals(month)) {
+                rewriteLog4j2Fxml("0 0 0 1 * ?");
+                lastSelected = month;
+            }
+            Configurator.reconfigure();
     }
 
     private void rewriteLog4j2Fxml(String newCron) {
         String changeStr = String.format("                <CronTriggeringPolicy schedule=\"%s\"/>", newCron);
-        String path = getClass().getResource("/log4j2.xml").getPath();
+        String path = Objects.requireNonNull(getClass().getResource("/log4j2.xml")).getPath();
         StringBuilder sb = new StringBuilder();
-        try (BufferedReader br = new BufferedReader(new InputStreamReader(Files.newInputStream(Paths.get(path))))) {
+        try (BufferedReader br = new BufferedReader(new InputStreamReader(Files.newInputStream(Paths.get(path))));
+             FileWriter fileWriter = new FileWriter(path)) {
             String strLine;
             while ((strLine = br.readLine()) != null) {
                 if (strLine.contains("CronTriggeringPolicy")) {
@@ -61,13 +62,8 @@ public class SettingsController implements Initializable {
                     sb.append(strLine).append("\n");
                 }
             }
-        } catch (IOException exception) {
-            LOGGER.error(exception.getMessage());
-        }
-
-        try(FileWriter fileWriter = new FileWriter(path)) {
             fileWriter.write(sb.toString());
-        }  catch (IOException exception) {
+        } catch (IOException exception) {
             LOGGER.error(exception.getMessage());
         }
     }
