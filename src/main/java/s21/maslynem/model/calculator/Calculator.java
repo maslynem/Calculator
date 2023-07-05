@@ -6,10 +6,35 @@ import s21.maslynem.model.utils.StringUtils;
 
 import java.nio.file.Path;
 import java.util.*;
+import java.util.function.BiFunction;
+import java.util.function.Function;
 
 public class Calculator {
 
     private final HistoryOfModel history;
+    private static final Map<String, BiFunction<Double, Double, Double>> operatorsMap;
+    private static final Map<String, Function<Double, Double>> functionsMap;
+
+   static {
+        operatorsMap = new HashMap<>();
+        operatorsMap.put("+", Double::sum);
+        operatorsMap.put("-", (a, b) -> a - b);
+        operatorsMap.put("*", (a, b) -> a * b);
+        operatorsMap.put("/", (a, b) -> a / b);
+        operatorsMap.put("^", Math::pow);
+        operatorsMap.put("%", (a, b) -> a % b);
+
+        functionsMap = new HashMap<>();
+        functionsMap.put("acos", Math::acos);
+        functionsMap.put("asin", Math::asin);
+        functionsMap.put("atan", Math::atan);
+        functionsMap.put("cos", Math::cos);
+        functionsMap.put("ln", Math::log);
+        functionsMap.put("log", Math::log10);
+        functionsMap.put("sin", Math::sin);
+        functionsMap.put("sqrt", Math::sqrt);
+        functionsMap.put("tan", Math::tan);
+    }
 
     public Calculator() {
         history = new HistoryOfModel();
@@ -79,48 +104,13 @@ public class Calculator {
         } else {
             double secondOperand = stack.pop();
             double firstOperand = stack.pop();
-            switch (operator) {
-                case "+":
-                    return firstOperand + secondOperand;
-                case "-":
-                    return firstOperand - secondOperand;
-                case "*":
-                    return firstOperand * secondOperand;
-                case "/":
-                    return firstOperand / secondOperand;
-                case "^":
-                    return Math.pow(firstOperand, secondOperand);
-                case "%":
-                    return firstOperand % secondOperand;
-            }
-            return Double.POSITIVE_INFINITY;
+            return operatorsMap.getOrDefault(operator, (a,b) -> Double.NaN).apply(firstOperand, secondOperand);
+
         }
     }
 
     private double executeFunction(Deque<Double> stack, String function) {
         double operand = stack.pop();
-        switch (function) {
-            case "acos":
-                return Math.acos(operand);
-            case "asin":
-                return Math.asin(operand);
-            case "atan":
-                return Math.atan(operand);
-            case "cos":
-                return Math.cos(operand);
-            case "ctg":
-                return 1 - Math.tan(operand);
-            case "ln":
-                return Math.log(operand);
-            case "log":
-                return Math.log10(operand);
-            case "sin":
-                return Math.sin(operand);
-            case "sqrt":
-                return Math.sqrt(operand);
-            case "tan":
-                return Math.tan(operand);
-        }
-        return Double.NaN;
+        return functionsMap.getOrDefault(function, (ignored) -> Double.NaN).apply(operand);
     }
 }

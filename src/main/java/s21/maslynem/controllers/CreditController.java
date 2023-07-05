@@ -167,4 +167,11 @@ public class CreditController implements Initializable {
     public void initModel(CreditCalculator calculator) {
         this.calculator = calculator;
     }
+
+
+    @FXML
+    void onHelpClicked() {
+        Stage stage = sceneController.getModalityStage("Help");
+        stage.show();
+    }
 }

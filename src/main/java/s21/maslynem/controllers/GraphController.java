@@ -144,4 +144,10 @@ public class GraphController implements Initializable {
             }
         });
     }
+
+    @FXML
+    void onHelpClicked() {
+        Stage stage = sceneController.getModalityStage("Help");
+        stage.show();
+    }
 }

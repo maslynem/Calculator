@@ -16,7 +16,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="420.0" prefWidth="620.0" style="-fx-background-color: #f4f4f4;" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="s21.maslynem.controllers.CalculatorController">
+<AnchorPane prefHeight="420.0" prefWidth="620.0" style="-fx-background-color: #f4f4f4;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="s21.maslynem.controllers.CalculatorController">
    <VBox layoutY="25.0" prefHeight="60.0" prefWidth="420.0" stylesheets="@../css/text_field.css">
       <TextField fx:id="inputField" alignment="CENTER_RIGHT" prefHeight="67.0" prefWidth="420.0" promptText="0" styleClass="text-field" stylesheets="@../css/text_field.css">
          <font>
@@ -80,6 +80,7 @@
          <MenuItem mnemonicParsing="false" onAction="#onCreditWindowClicked" style="-fx-font-size: 12;" text="Credit Calculator" />
          <MenuItem mnemonicParsing="false" style="-fx-font-size: 12;" text="Deposit Calculator" />
          <MenuItem mnemonicParsing="false" onAction="#onSettingsClicked" style="-fx-font-size: 12;" text="Settings" />
+         <MenuItem mnemonicParsing="false" onAction="#onHelpClicked" style="-fx-font-size: 12;" text="Help" />
       </Menu>
    </MenuBar>
    <Label layoutX="55.0" layoutY="13.0" text="Calculator">
