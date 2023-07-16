@@ -52,8 +52,7 @@ public class SettingsController implements Initializable {
         String changeStr = String.format("                <CronTriggeringPolicy schedule=\"%s\"/>", newCron);
         String path = Objects.requireNonNull(getClass().getResource("/log4j2.xml")).getPath();
         StringBuilder sb = new StringBuilder();
-        try (BufferedReader br = new BufferedReader(new InputStreamReader(Files.newInputStream(Paths.get(path))));
-             FileWriter fileWriter = new FileWriter(path)) {
+        try (BufferedReader br = new BufferedReader(new InputStreamReader(Files.newInputStream(Paths.get(path))))) {
             String strLine;
             while ((strLine = br.readLine()) != null) {
                 if (strLine.contains("CronTriggeringPolicy")) {
@@ -62,6 +61,10 @@ public class SettingsController implements Initializable {
                     sb.append(strLine).append("\n");
                 }
             }
+        } catch (IOException exception) {
+            LOGGER.error(exception.getMessage());
+        }
+        try(FileWriter fileWriter = new FileWriter(path)) {
             fileWriter.write(sb.toString());
         } catch (IOException exception) {
             LOGGER.error(exception.getMessage());
